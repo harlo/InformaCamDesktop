@@ -1,0 +1,3 @@
+function handleDesktopServiceMessage(data) {
+	
+}
