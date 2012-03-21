@@ -2,9 +2,9 @@ package org.witness.informa.utils;
 
 import java.io.File;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
+
+import net.sf.json.JSONObject;
+
 import org.witness.informa.utils.Informa;
 import org.witness.informa.wrappers.JpegWrapper;
 

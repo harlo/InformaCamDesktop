@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.cometd.bayeux.Message;
+import org.witness.informa.utils.Constants.DC.Commands;
+import org.witness.informa.utils.Constants.DC.Keys;
 
 public class InformaMessage implements Constants {
 	public Map<String, Object> in;
@@ -12,6 +14,16 @@ public class InformaMessage implements Constants {
 	public static Map<String, Object> in(Message msg) {
 		Map<String, Object> in = msg.getDataAsMap();
         return in;
+	}
+	
+	public static Map<String, Object> spinner(String spinnerText, int codeToWaitFor) {
+		Map<String, Object> spinner = new HashMap<String, Object>();
+		spinner.put(Keys.INTERRUPT, Commands.WAIT_FOR_PROCESS);
+		spinner.put(Keys.WAIT_CODE, codeToWaitFor);
+		spinner.put(Keys.MESSAGE, spinnerText);
+		Map<String, Object> output = new HashMap<String, Object>();
+		output.put(DC.RESPONSE, spinner);
+		return output;
 	}
 	
 	public void put(String tag, Object input) {

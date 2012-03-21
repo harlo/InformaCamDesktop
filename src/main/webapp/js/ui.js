@@ -1,6 +1,6 @@
 var ic, ui;
-var header, nav, footer, main;
-var metadata_readout, media_options, media_options_menu;
+var header, nav, footer, main, alert_holder;
+var metadata_readout, media_options, media_options_menu, media_frame;
 
 function clearUi() {
 	$.each(ui, function(item) {
@@ -21,6 +21,18 @@ function showMenu(root, which) {
 	$($("#" + root).children("ul")[which]).css('display','block');
 }
 
+function showAlert(txt) {
+	alert_holder.empty();
+	alert_holder.append(
+		$(document.createElement('h3')).html(txt)
+	);
+	alert_holder.css('display','block');
+}
+
+function removeAlert() {
+	alert_holder.css('display','none');
+}
+
 function initLayout() {
 	header = $('#ic_header');
 	nav = $('#ic_nav');
@@ -30,8 +42,12 @@ function initLayout() {
 	metadata_readout = $("#metadata_readout");
 	media_options = $("#media_options");
 	media_options_menu = $(media_options.children("ul")[0]);
+	media_frame = $("#media_frame");
 	
 	main.css('height',(($(window).height() - 100) - (header.height() + footer.height())));
+	
+	alert_holder = $("#alert_holder");
+	alert_holder.css('margin-top', ($(window).height()/2) -175);
 	
 	ui = {
 		media: {
@@ -46,7 +62,12 @@ function initLayout() {
 				metadata_readout.css('display','none');
 			},
 			load: function() {
-				alert('loading media ui');
+				$.each(media_options.children(), function(item) {
+					if(item > 0)
+						$(this).css('display','block');
+				});
+				$("media_title").css('display','block');
+				metadata_readout.css('display','block');
 			}
 		},
 		submissions: {

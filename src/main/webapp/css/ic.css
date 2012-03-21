@@ -9,6 +9,18 @@ body {
 
 /*--------------------------------------
 Layout*/
+#alert_holder {
+	position:absolute;
+	z-index:100;
+	width:30%;
+	height:150px;
+	text-align:center;
+	background-color:#3ef600;
+	margin:0 0 0 35%;
+	padding:0;
+	display:none;
+}
+
 #ic_header, #ic_main, #ic_footer {
 	margin:10px 0;
 	padding:10px;
@@ -89,6 +101,16 @@ h2 {
 	font-weight:normal;
 	margin:0;
 	padding:0;
+}
+
+#alert_holder h3 {
+	color:#fff;
+	font-size:1em;
+	font-weight:normal;
+}
+
+#alert_holder p {
+	color:#fff;
 }
 
 #media_title {

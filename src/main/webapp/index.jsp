@@ -25,6 +25,7 @@
     <title>InformaCam - powered by The Guardian Project</title>
 </head>
 <body>
+	<div id="alert_holder"></div>
 	<div id="ic_header">
 		<div id="ic_logo">
 			InformaCam
@@ -55,6 +56,7 @@
 								<li>View Submission Info</li>
 							</ul>
 						</div>
+						<div id="media_frame"></div>
 					</td>
 					<td id="metadata_holder">
 						<h2 id="media_title">media title would go here</h2>

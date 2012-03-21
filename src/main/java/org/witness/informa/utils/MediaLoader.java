@@ -14,6 +14,9 @@ import java.util.Map.Entry;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
+import net.sf.json.JSONObject;
+
+import org.witness.informa.utils.Constants.Media.MediaTypes;
 import org.witness.informa.wrappers.FfmpegWrapper;
 import org.witness.informa.wrappers.JpegWrapper;
 
@@ -21,9 +24,9 @@ public class MediaLoader implements Constants {
 	InformaVideo video;
 	InformaImage image;
 	
-	public MediaLoader() throws Exception {
-		loadMedia();
-	}
+	public int mediaType = 0;
+	
+	public MediaLoader() {}
 	
 	private void initVideo(String path) throws Exception {
 		video = new InformaVideo(path);
@@ -35,7 +38,8 @@ public class MediaLoader implements Constants {
 		video = null;
 	}
 	
-	private void loadMedia() throws Exception {
+	public JSONObject loadMedia() throws Exception {
+		JSONObject loadedData = new JSONObject();
 		// open file chooser
 		JFileChooser chooser = new JFileChooser(Media.PATH_START);
 		chooser.setFileFilter(new MediaPicker());
@@ -45,17 +49,23 @@ public class MediaLoader implements Constants {
 			int mimeType = MediaPicker.MapFileType(chooser.getSelectedFile().getName().substring(chooser.getSelectedFile().getName().lastIndexOf(".")));
 			switch(mimeType) {
 			case Media.MimeTypes.JPEG:
-				initImage(chooser.getSelectedFile().getAbsolutePath());
+				image = new InformaImage(chooser.getSelectedFile().getAbsolutePath());
+				mediaType = MediaTypes.IMAGE;
+				
 				break;
 			case Media.MimeTypes.MP4:
-				initVideo(chooser.getSelectedFile().getAbsolutePath());
+				video = new InformaVideo(chooser.getSelectedFile().getAbsolutePath());
+				mediaType = MediaTypes.VIDEO;
 				break;
 			case Media.MimeTypes.MKV:
-				initVideo(chooser.getSelectedFile().getAbsolutePath());
+				video = new InformaVideo(chooser.getSelectedFile().getAbsolutePath());
+				mediaType = MediaTypes.VIDEO;
+				loadedData = video.metadata;
 				break;
 			}
 			
 		}
+		return loadedData;
 	}
 	
 	public static ArrayList<String> fileToStrings(File file) throws IOException {

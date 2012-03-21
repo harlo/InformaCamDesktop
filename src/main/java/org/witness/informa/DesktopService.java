@@ -1,7 +1,5 @@
 package org.witness.informa;
 
-import javax.swing.JFileChooser;
-
 import org.cometd.bayeux.Message;
 import org.cometd.bayeux.server.BayeuxServer;
 import org.cometd.bayeux.server.ServerSession;
@@ -28,6 +26,8 @@ public class DesktopService extends AbstractService implements Constants {
 			case Attempts.LOAD_MEDIA:
 				try {
 					ml = new MediaLoader();
+					msg.put(DC.Keys.COMMAND, DC.Commands.LOAD_MEDIA);
+					msg.put(DC.Keys.METADATA, ml.loadMedia());
 				} catch (Exception e) {
 					log(e.toString());
 				}
@@ -35,7 +35,6 @@ public class DesktopService extends AbstractService implements Constants {
 			}
 		}
 		
-		msg.put("hello", "i see you");
 		remote.deliver(getServerSession(), "/desktopConnection", msg.out(), null);
 	}
 	

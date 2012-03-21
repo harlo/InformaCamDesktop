@@ -15,49 +15,43 @@ public interface Constants {
 			public final static int LOAD_MEDIA = 100;
 		}
 		
+		public final static class Commands {
+			public final static int LOAD_MEDIA = DC.Attempts.LOAD_MEDIA;
+			public final static int WAIT_FOR_PROCESS = 101;
+		}
+		
+		public final static class Keys {
+			public final static String COMMAND = "command";
+			public final static String MEDIA_TYPE = "mediaType";
+			public final static String METADATA = "metadata";
+			public final static String INTERRUPT = "interrupt";
+			public final static String WAIT_CODE = "waitCode";
+			public final static String MESSAGE = "message";
+		}
+		
 	}
 	
 	public final static class Callback {
-		public final static class CheckForFfmpeg {
-			public final static int ID = 11;
-			public final static String TAG = "checkForFfmpeg";
-			public final static String LABEL = "Check Ffmpeg Status";
-		}
-		
-		public final static class LoadMedia {
-			public final static int ID = 10;
-			public final static String TAG = "loadMedia";
-			public final static String LABEL = "Load Media";
-		}
-		
-		public final static class WriteMetadata {
-			public final static int ID = 9;
-			public final static String TAG = "writeMetadata";
-			public final static String LABEL = "Write Metadata to Media";
-		}
-		
 		public final static class Jpeg {
 			public final static String GET_METADATA = "getMetadata";
 			
 		}
 		
-		public final static class ProgressWindow {
-			public final static int ID = 8;
-			public final static String TAG = "killProgress";
-			public final static class Notifications {
-				public final static String LOADING = "Loading...";
-			}
+		public final static class Ffmpeg {
+			
 		}
 	}
 	
 	public final static class UI {
 		public final static class Prompt {
 			public final static String MEDIA_PICKER = "Jpeg or Movie";
+			public final static String MEDIA_LOADING = "Media Loading";
 		}
 	}
 	
 	public final static class Media {
 		public final static String PATH_START =  "/Users/LvH/Documents/Eclipse/workspace/InformaScratchbed/assets/";
+		
 		public final static String[] EXTENSIONS = {"jpeg", "jpg", "mov", "mp4", "mkv"};
 		public final static class MimeTypes {
 			public final static int JPEG = 100;
@@ -76,12 +70,19 @@ public interface Constants {
 			MIME_TYPES = Collections.unmodifiableMap(mime_types);
 		}
 		
-		public final static String DIMENSIONS = "dimensions";
+		public final static String MEDIA_TYPE = "mediaType";
+		public final static class MediaTypes {
+			public final static int VIDEO = 200;
+			public final static int IMAGE = 201;
+		}
 		
+		public final static String DIMENSIONS = "dimensions";
 		public final static class Dimensions {
 			public final static String WIDTH = "width";
 			public final static String HEIGHT = "height";
 		}
+		
+		public final static String PATH = "filePath";
 	}
 	
 	public final static class Ffmpeg {
