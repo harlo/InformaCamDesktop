@@ -15,12 +15,12 @@ import java.util.concurrent.Future;
 
 import net.sf.json.JSONObject;
 
-import org.witness.informa.utils.Constants.Callback;
-import org.witness.informa.utils.Constants.Ffmpeg;
+import org.witness.informa.utils.Constants;
+import org.witness.informa.utils.InformaConstants;
 
-public class JpegWrapper {
+public class JpegWrapper implements Constants, InformaConstants {
 	public native String getMetadata(String filename);
-	//public native byte[] unpackRegion(String imageFilename, int regionStart, int regionLength);
+	public native byte[] unpackRegion(String imageFilename, int regionStart, int regionLength);
 	public native String sayHi();
 	
 	ArrayList<Map<String, String>> commands;
@@ -28,7 +28,7 @@ public class JpegWrapper {
 	public JpegWrapper wrapper;
 	
 	static {
-		System.load("/Users/LvH/Documents/Eclipse/workspace/InformaScratchbed/jni/libJpegWrapper.so");
+		System.load(APP_ROOT + "jni/libJpegWrapper.so");
 	}
 	
 	public JpegWrapper() {
@@ -59,6 +59,7 @@ public class JpegWrapper {
 			}
 			
 			System.out.println(result.toString());
+			commands.remove(command);
 			return result;
 		}
 		

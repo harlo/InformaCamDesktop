@@ -2,6 +2,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <script type="text/javascript" src="js/string.js"></script>
+    <script type="text/javascript" src="js/vars.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/jquery/jquery-1.7.1.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/jquery/json2.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/org/cometd.js"></script>
@@ -25,11 +27,22 @@
     <title>InformaCam - powered by The Guardian Project</title>
 </head>
 <body>
-	<div id="alert_holder"></div>
+	<div id="alert_holder">
+		<h1 id="alert_title"></h1>
+		<div id="alert_text"></div>
+		<a id="alert_button" class="dismissal" onclick="removeAlert();">OK</a>
+	</div>
 	<div id="ic_header">
 		<div id="ic_logo">
-			InformaCam
-			<p>Powered by<br /><a href="https://guardianproject.info" target="_blank">The Guardian Project</a></p>
+			<table>
+				<tr>
+					<td><img src="images/ic_logo.png" /></td>
+					<td>
+						<h1>InformaCam</h1>
+						<p>Powered by<br /><a href="https://guardianproject.info" target="_blank">The Guardian Project</a></p>
+					</td>
+				</tr>
+			</table>
 		</div>
 		
 		<ul id="ic_nav">
@@ -47,16 +60,42 @@
 					<td id="media_holder" width="75%">
 
 						<div id="media_options">
-							<a onclick="loadMedia();">Load</a>
-							<a onclick="showMenu('media_options');">Options...</a>
-							<ul>
-								<li>Switch to redacted view</li>
-								<li>Share Video</li>
-								<li>Export Metadata As...</li>
-								<li>View Submission Info</li>
+							<ul class="ic_menu_button">
+								<li>
+									<a onclick="loadMedia();">Load...</a>
+								</li>
+								<li>
+									<a>Views</a>
+									<div class="ic_dropdown">
+										<ul>
+											<li>Normal View</li>
+											<li>Map View</li>
+											<li>Motion View</li>
+											<li>Network View</li>
+										</ul>
+									</div>
+								</li>
+								<li>
+									<a>Options</a>
+									<div class="ic_dropdown">
+										<ul>
+											<li>Share Video</li>
+											<li>Export Metadata As...</li>
+											<li>View Submission Info</li>
+										</ul>
+									</div>
+								</li>
+								<li class="ic_menu_buttonOverride">
+									Show Media As: 
+									<div class="ic_toggle" id="mediaView">
+										<a onclick="toggleValue(this);media.setCurrentDisplay(Display.REDACTED);" rel="redacted" class="selected">Redacted</a><a onclick="toggleValue(this);media.setCurrentDisplay(Display.UNREDACTED);" rel="unredacted">Unredacted</a>
+									</div>
+								</li>
 							</ul>
 						</div>
-						<div id="media_frame"></div>
+						<div id="media_frame">
+							
+						</div>
 					</td>
 					<td id="metadata_holder">
 						<h2 id="media_title">media title would go here</h2>

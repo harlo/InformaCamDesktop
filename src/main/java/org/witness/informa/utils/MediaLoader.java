@@ -51,7 +51,6 @@ public class MediaLoader implements Constants {
 			case Media.MimeTypes.JPEG:
 				image = new InformaImage(chooser.getSelectedFile().getAbsolutePath());
 				mediaType = MediaTypes.IMAGE;
-				
 				break;
 			case Media.MimeTypes.MP4:
 				video = new InformaVideo(chooser.getSelectedFile().getAbsolutePath());

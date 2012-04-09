@@ -6,6 +6,7 @@ import java.util.Map;
 
 public interface Constants {
 	public final static String LOG = "InformaScratchbed: ";
+	public final static String APP_ROOT = "/Users/LvH/ORG/witness/InformaCamDesktop/";
 	
 	public final static class DC {
 		public final static String RESPONSE = "response";
@@ -50,7 +51,7 @@ public interface Constants {
 	}
 	
 	public final static class Media {
-		public final static String PATH_START =  "/Users/LvH/Documents/Eclipse/workspace/InformaScratchbed/assets/";
+		public final static String PATH_START =  "/Users/LvH/ORG/witness/SSC/test_img/";
 		
 		public final static String[] EXTENSIONS = {"jpeg", "jpg", "mov", "mp4", "mkv"};
 		public final static class MimeTypes {

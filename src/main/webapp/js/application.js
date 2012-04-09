@@ -1,20 +1,3 @@
-var cometd;
-var dc = '/service/desktopConnection';
-
-var attempt = {
-	LOAD_MEDIA: 100
-};
-
-var command = {
-	LOAD_MEDIA: 100,
-	WAIT_FOR_PROCESS: 101
-};
-
-var MediaTypes = {
-	VIDEO: 200,
-	IMAGE: 201
-};
-
 (function($)
 {
     cometd = $.cometd;

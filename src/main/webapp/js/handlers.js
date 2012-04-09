@@ -10,3 +10,7 @@ function handleDesktopServiceMessage(data) {
 		}
 	}
 }
+
+function broadcast(obj) {
+	cometd.publish(dc, obj);
+}

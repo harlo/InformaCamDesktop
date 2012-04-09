@@ -28,6 +28,7 @@ public class DesktopService extends AbstractService implements Constants {
 					ml = new MediaLoader();
 					msg.put(DC.Keys.COMMAND, DC.Commands.LOAD_MEDIA);
 					msg.put(DC.Keys.METADATA, ml.loadMedia());
+					
 				} catch (Exception e) {
 					log(e.toString());
 				}

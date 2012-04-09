@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
@@ -28,7 +27,6 @@ public class InformaVideo extends File implements Informa, Constants, InformaCon
 	
 	public InformaVideo(String path) throws InterruptedException, ExecutionException, JSONException {
 		super(path);
-		System.out.println("initializing informa video object");
 		metadata = new JSONObject();
 		context();
 	}
@@ -72,9 +70,8 @@ public class InformaVideo extends File implements Informa, Constants, InformaCon
 				break;
 			}
 			
-			metadata.put(Media.MEDIA_TYPE, MediaTypes.VIDEO);
+			metadata.put(Media.MEDIA_TYPE, Media.MediaTypes.VIDEO);
 			metadata.put(Media.PATH, clone.getAbsolutePath());
-			
 		}
 	}
 	
@@ -112,6 +109,11 @@ public class InformaVideo extends File implements Informa, Constants, InformaCon
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public void extractMetadata(String md) {
+		
 	}
 
 }
