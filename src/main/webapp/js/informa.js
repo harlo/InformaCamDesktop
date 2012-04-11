@@ -17,7 +17,7 @@ var Informa = {
 				[Metadata.Data.Device.DEVICE_BLUETOOTH_ADDRESS,media.informa.data.device.bluetoothInfo.deviceBTAddress],
 				[Metadata.Data.Device.DEVICE_IMEI, media.informa.data.device.imei],
 				Metadata.Data.Device.Integrity.label,
-				[Metadata.Data.Device.Integrity.RATING, 100]
+				[Metadata.Data.Device.Integrity.RATING, media.informa.integrityRating]
 			]
 		}
 	}
