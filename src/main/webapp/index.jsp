@@ -30,7 +30,7 @@
 	<div id="alert_holder">
 		<h1 id="alert_title"></h1>
 		<div id="alert_text"></div>
-		<a id="alert_button" class="dismissal" onclick="removeAlert();">OK</a>
+		<div id="alert_options"></div>
 	</div>
 	<div id="ic_header">
 		<div id="ic_logo">
@@ -57,7 +57,7 @@
 		<div id="ui_media">
 			<table class="ic_table">
 				<tr>
-					<td id="media_holder" width="75%">
+					<td id="media_holder" width="60%">
 
 						<div id="media_options">
 							<ul class="ic_menu_button">
@@ -78,59 +78,24 @@
 								<li>
 									<a>Options</a>
 									<div class="ic_dropdown">
-										<ul>
-											<li>Share Video</li>
-											<li>Export Metadata As...</li>
-											<li>View Submission Info</li>
-										</ul>
+										<ul id="options_menu"></ul>
 									</div>
 								</li>
 								<li class="ic_menu_buttonOverride">
 									Show Media As: 
 									<div class="ic_toggle" id="mediaView">
-										<a onclick="toggleValue(this);media.setCurrentDisplay(Display.REDACTED);" rel="redacted" class="selected">Redacted</a><a onclick="toggleValue(this);media.setCurrentDisplay(Display.UNREDACTED);" rel="unredacted">Unredacted</a>
+										<a id="display_redacted" onclick="toggleValue(this);media.setCurrentDisplay(Display.REDACTED);" rel="redacted" class="selected">Redacted</a><a id="display_unredacted" onclick="toggleValue(this);media.setCurrentDisplay(Display.UNREDACTED);" rel="unredacted">Unredacted</a>
 									</div>
 								</li>
 							</ul>
 						</div>
 						<div id="media_frame">
-							
+							<canvas id="media_overlay" />
 						</div>
 					</td>
 					<td id="metadata_holder">
-						<h2 id="media_title">media title would go here</h2>
-						<div id="metadata_readout">
-							<ul>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-								<li>a list of things</li>
-							</ul>
-						</div>
+						<h2 id="media_title"></h2>
+						<div id="metadata_readout"></div>
 					</td>
 				</tr>
 			</table>
@@ -148,10 +113,15 @@
 			<h1>help main</h1>
 		</div>
 		
+		<div id="ui_details">
+			<h1>details viewer</h1>
+		</div>
+		
 	</div>
 	
 	<div id="ic_footer">
 		<div id="ic_login"></div>
 	</div>
-</body>
+	
+	</body>
 </html>

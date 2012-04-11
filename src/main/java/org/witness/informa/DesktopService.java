@@ -30,7 +30,7 @@ public class DesktopService extends AbstractService implements Constants {
 					msg.put(DC.Keys.METADATA, ml.loadMedia());
 					
 				} catch (Exception e) {
-					log(e.toString());
+					Log(e.toString());
 				}
 				break;
 			}
@@ -39,7 +39,7 @@ public class DesktopService extends AbstractService implements Constants {
 		remote.deliver(getServerSession(), "/desktopConnection", msg.out(), null);
 	}
 	
-	private static void log(String l) {
+	public static void Log(String l) {
 		System.out.println(LOG + ": " + l);
 	}
 }

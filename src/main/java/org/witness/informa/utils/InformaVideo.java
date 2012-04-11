@@ -112,7 +112,18 @@ public class InformaVideo extends File implements Informa, Constants, InformaCon
 	}
 
 	@Override
+	public int getIntegrityRating() {
+		// TODO: get integrity rating!
+		return 100;
+	}
+	
+	@Override
 	public void extractMetadata(String md) {
+		
+	}
+
+	@Override
+	public void createClone() {
 		
 	}
 

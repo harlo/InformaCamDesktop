@@ -5,8 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public interface Constants {
-	public final static String LOG = "InformaScratchbed: ";
+	public final static String LOG = "***** InformaScratchbed: ";
 	public final static String APP_ROOT = "/Users/LvH/ORG/witness/InformaCamDesktop/";
+	public final static String CACHE_ROOT = APP_ROOT + "src/main/webapp/images/session_cache/";
 	
 	public final static class DC {
 		public final static String RESPONSE = "response";
@@ -52,6 +53,7 @@ public interface Constants {
 	
 	public final static class Media {
 		public final static String PATH_START =  "/Users/LvH/ORG/witness/SSC/test_img/";
+		public final static String LOCAL_PATH = "localPath";
 		
 		public final static String[] EXTENSIONS = {"jpeg", "jpg", "mov", "mp4", "mkv"};
 		public final static class MimeTypes {

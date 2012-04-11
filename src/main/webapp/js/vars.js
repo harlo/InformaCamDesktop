@@ -8,8 +8,8 @@ var Command = {
 
 var media;
 var MediaTypes = {
-	VIDEO: 200,
-	IMAGE: 201
+	VIDEO: 102,
+	IMAGE: 101
 };
 var MediaPaths = {
 	LOCAL: 200,
@@ -26,7 +26,7 @@ var Display = {
 
 var ic, ui;
 var header, nav, footer, main, alert_holder;
-var metadata_readout, media_options, media_options_menu, media_frame;
+var metadata_readout, media_options, media_options_menu, media_frame, media_overlay, mcx;
 
 function getNameByValue(group, value) {
 	var name;

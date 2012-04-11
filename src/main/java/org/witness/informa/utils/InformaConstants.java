@@ -1,5 +1,14 @@
 package org.witness.informa.utils;
 
+import org.witness.informa.utils.InformaConstants.Keys.CaptureEvent;
+import org.witness.informa.utils.InformaConstants.Keys.Events;
+import org.witness.informa.utils.InformaConstants.Keys.Genealogy;
+import org.witness.informa.utils.InformaConstants.Keys.Image;
+import org.witness.informa.utils.InformaConstants.Keys.Intent;
+import org.witness.informa.utils.InformaConstants.Keys.Location;
+import org.witness.informa.utils.InformaConstants.Keys.Suckers;
+import org.witness.informa.utils.InformaConstants.Keys.Video;
+
 public interface InformaConstants {
 		public final static String TAG = "************ INFORMA ***********";
 		public final static String READOUT = "******************* INFORMA READOUT ******************";
@@ -15,6 +24,7 @@ public interface InformaConstants {
 
 		public final static class Keys {
 			public final static String USER_CANCELED_EVENT = "userCanceledEvent";
+			public final static String ENCRYPTED_IMAGES = "encryptedImages";
 			
 			public final static class Settings {
 				public static final String INFORMA = "informa";
@@ -33,6 +43,9 @@ public interface InformaConstants {
 				public final static String SET_EXIF = "setExif";
 				public final static String FINISH_ACTIVITY = "finishActivity";
 				public final static String START_SERVICE = "startService";
+				public final static String LOCK_LOGS = "lockLogs";
+				public final static String UNLOCK_LOGS = "unlockLogs";
+				public final static String INFLATE_VIDEO_TRACK = "inflateDataForVideoTrack";
 			}
 			
 			public final static class Informa {
@@ -44,7 +57,11 @@ public interface InformaConstants {
 			public final static class CaptureEvent {
 				public final static String TYPE = "captureEvent";
 				public final static String MATCH_TIMESTAMP = "matchTimestamp";
-				public final static String TIMESTAMP = "timestamp";
+				public final static String TIMESTAMP = Image.TIMESTAMP;
+				public final static String ON_VIDEO_START = "timestampOnVideoStart";
+				public final static String MEDIA_CAPTURE_COMPLETE = "mediaCapturedComplete";
+				public final static String VIDEO_TRACK = Video.VIDEO_TRACK;
+				public final static String EVENT = Events.CAPTURE_EVENT;
 			}
 			
 			public final static class ImageRegion {
@@ -68,6 +85,7 @@ public interface InformaConstants {
 					public final static String UNREDACTED_HASH = "unredactedRegionHash";
 					public final static String LENGTH = "dataLength";
 					public final static String POSITION = "byteStart";
+					public final static String BYTES = "byteArray";
 				}
 				
 				public final static class Subject {
@@ -79,6 +97,14 @@ public interface InformaConstants {
 			
 			public final static class Data {
 				public final static String IMAGE_REGIONS = "imageRegions";
+				public final static String VIDEO_REGIONS = "videoRegions";
+				public final static String EVENTS = "events";
+				public final static String MEDIA_HASH = "mediaHash";
+			}
+			
+			public final static class Genealogy {
+				public final static String LOCAL_MEDIA_PATH = "localMediaPath";
+				public final static String DATE_CREATED = "dateCreated";
 			}
 			
 			public final static class Location {
@@ -96,10 +122,23 @@ public interface InformaConstants {
 				}
 			}
 			
+			public final static class Events {
+				public final static String EVENT_DATA = "eventData";
+				public final static String CAPTURE_EVENT = CaptureEvent.TYPE;
+				public final static String TYPE = "eventType";
+				public final static String TIMESTAMP = CaptureEvent.TIMESTAMP;
+			}
+			
 			public final static class TrustedDestinations {
 				public final static String EMAIL = Intent.Destination.EMAIL;
 				public final static String KEYRING_ID = "keyringId";
 				public final static String DISPLAY_NAME = Intent.Destination.DISPLAY_NAME;
+			}
+			
+			public final static class Media {
+				public final static String MEDIA_TYPE = "source_type";
+				public final static String UNREDACTED_HASH = Image.UNREDACTED_IMAGE_HASH;
+				public final static String REDACTED_HASH = Image.REDACTED_IMAGE_HASH;
 			}
 			
 			public final static class Image {
@@ -107,12 +146,24 @@ public interface InformaConstants {
 				public static final String CONTAINMENT_ARRAY = "source_containmentArray";
 				public static final String UNREDACTED_IMAGE_HASH = "source_unredactedImageHash";
 				public static final String REDACTED_IMAGE_HASH = "source_redactedImageHash";
-				public final static String MEDIA_TYPE = "source_type";
-				public final static String LOCAL_MEDIA_PATH = "localMediaPath";
+				public final static String LOCAL_MEDIA_PATH = Genealogy.LOCAL_MEDIA_PATH;
 				public final static String TIMESTAMP = "timestamp";
 				public final static String LOCATION_OF_ORIGINAL = "source_locationOfOriginal";
 				public final static String LOCATION_OF_OBSCURED_VERSION = "source_locationOfObscuredVersion";
 				public final static String EXIF = "exifData";
+			}
+			
+			public final static class Video {
+				public final static String FIRST_TIMESTAMP = CaptureEvent.ON_VIDEO_START;
+				public final static String DURATION = "videoDuration";
+				public final static String VIDEO_TRACK = "videoTrack";
+			}
+			
+			public final static class Ass {
+				public final static String VROOT = "%vroot";
+				public final static String BLOCK_START = "%blockstart";
+				public final static String BLOCK_END = "%blockend";
+				public final static String BLOCK_DATA = "%mdload";
 			}
 			
 			public final static class Owner {
@@ -124,6 +175,7 @@ public interface InformaConstants {
 			public final static class Device {
 				public static final String LOCAL_TIMESTAMP = "device_localTimestamp";
 				public static final String PUBLIC_TIMESTAMP = "device_publicTimestamp";
+				public static final String INTEGRITY = "integrityRating";
 				public static final String IMEI = Suckers.Phone.IMEI;
 				public static final String BLUETOOTH_DEVICE_NAME = Suckers.Phone.BLUETOOTH_DEVICE_NAME;
 				public static final String BLUETOOTH_DEVICE_ADDRESS = Suckers.Phone.BLUETOOTH_DEVICE_ADDRESS;
@@ -142,7 +194,7 @@ public interface InformaConstants {
 				public final static String PHONE = "Suckers_Phone";
 				public final static String ACCELEROMETER = "Suckers_Accelerometer";
 				public final static String GEO = "Suckers_Geo";
-				
+							
 				public final static class Accelerometer {
 					public final static String ACC = "acc";
 					public final static String ORIENTATION = "orientation";
@@ -197,18 +249,22 @@ public interface InformaConstants {
 			public final static int REGION_GENERATED = 7;
 			public final static int EXIF_REPORTED = 8;
 			public final static int BLUETOOTH_DEVICE_SEEN = 9;
+			public final static int VALUE_CHANGE = 4;
+			public final static int DURATIONAL_LOG = 3;
 		}
 
 		public final static class LocationTypes {
 			public final static int ON_MEDIA_CAPTURED = 10;
 			public final static int ON_MEDIA_SAVED = 11;
 			public final static int ON_REGION_GENERATED = 12;
+			public final static int ON_VIDEO_START = 13;
 		}
 		
 		public final static class CaptureTimestamps {
 			public final static int ON_MEDIA_CAPTURED = LocationTypes.ON_MEDIA_CAPTURED;
 			public final static int ON_MEDIA_SAVED = LocationTypes.ON_MEDIA_SAVED;
 			public final static int ON_REGION_GENERATED = LocationTypes.ON_REGION_GENERATED;
+			public final static int ON_VIDEO_START = LocationTypes.ON_VIDEO_START;
 		}
 
 		public final static class SecurityLevels {
@@ -239,11 +295,6 @@ public interface InformaConstants {
 		
 		public final static class Consent {
 			public final static int GENERAL = 101;
-		}
-		
-		public final static class Selections {
-			public final static String SELECT_ONE = "select_one";
-			public final static String SELECT_MULTI = "select_multi";
 		}
 		
 		public final static int NOT_REPORTED = -1;

@@ -53,7 +53,7 @@ Layout*/
 	background-image:url('../images/ic_trans_blk.png');
 }
 
-#ui_media, #ui_submissions, #ui_admin, #ui_help {
+#ui_media, #ui_submissions, #ui_admin, #ui_help, #ui_details {
 	margin:10px;
 	padding:0;
 	position:absolute;
@@ -192,6 +192,24 @@ p {
 	color:#fff;
 }
 
+#metadata_readout ul li {
+	font-size:0.6em;
+}
+
+#metadata_readout ul li h3 {
+	color:#c6ff00;
+	font-weight:normal;
+	font-size:1em;
+	margin:6px 0;
+	padding:0;
+}
+
+#metadata_readout ul li a, #metadata_readout ul li a:link, #metadata_readout ul li a:visited, #metadata_readout ul li a:hover {
+	color:#ffffff;
+	text-decoration:underline;
+	cursor:pointer;
+}
+
 /*--------------------------------------
 Lists*/
 #ic_nav {
@@ -216,8 +234,7 @@ Lists*/
 }
 
 #metadata_readout ul li {
-	font-size:0.6em;
-	padding:4px 0;
+	padding:1px 0;
 	color:#ccc;
 }
 
