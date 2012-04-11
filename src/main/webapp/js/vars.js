@@ -13,14 +13,56 @@ var MediaTypes = {
 };
 var MediaPaths = {
 	LOCAL: 200,
-	CLONE: 201
+	REDACTED: 201,
+	UNREDACTED: 202
 }
 var Display = {
 	REDACTED: 200,
 	UNREDACTED: 201,
 	Names: {
-		200: "Redacted",
-		201: "Unredacted"
+		200: Display_str.REDACTED,
+		201: Display_str.UNREDACTED
+	}
+}
+
+var View = {
+	NORMAL : 300,
+	MAP: 301,
+	MOTION: 302,
+	NETWORK: 303,
+	Names: {
+		300: View_str.NORMAL,
+		301: View_str.MAP,
+		302: View_str.MOTION,
+		303: View_str.NETWORK
+	}
+}
+
+var OwnershipTypes = {
+	INDIVIDUAL: 400,
+	ORGANIZATION: 401,
+	Names: {
+		400: Metadata.Intent.OwnershipTypes.INDIVIDUAL,
+		401: Metadata.Intent.OwnershipTypes.ORGANIZATION
+	}
+}
+
+var ImageRegions = {
+	IDENTIFY: {
+		name: "org.witness.ssc.image.filters.InformaTagger",
+		label: Metadata.Data.ImageRegions.Filters.IDENTIY
+	},
+	PIXELATE: {
+		name: "org.witness.ssc.image.filters.PixelizeObscure",
+		label: Metadata.Data.ImageRegions.Filters.PIXELATE
+	},
+	BACKGROUND_PIXELATE: {
+		name: "org.witness.ssc.image.filters.CrowdPixelizeObscure",
+		label: Metadata.Data.ImageRegions.Filters.BACKGROUND_PIXELATE
+	},
+	REDACT: {
+		name: "org.witness.ssc.image.filters.SolidObscure",
+		label: Metadata.Data.ImageRegions.Filters.REDACT
 	}
 }
 
@@ -35,4 +77,17 @@ function getNameByValue(group, value) {
 			name = group[key]
 	}
 	return group[value];
+}
+
+function parseDate(millis) {
+	var date = new Date(millis).toString().split(" ");;
+	var dstr = new Array();
+	dstr.push(date[0]);
+	dstr.push(date[1]);
+	dstr.push(date[2] + ",");
+	dstr.push(date[3]);
+	dstr.push("(" + date[4]);
+	dstr.push(date[5] + ")");
+	
+	return dstr.join(" ");
 }

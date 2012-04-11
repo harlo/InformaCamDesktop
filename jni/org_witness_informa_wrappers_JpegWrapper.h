@@ -20,16 +20,9 @@ JNIEXPORT jstring JNICALL Java_org_witness_informa_wrappers_JpegWrapper_getMetad
  * Method:    unpackRegion
  * Signature: (Ljava/lang/String;II)[B
  */
-//JNIEXPORT jbyteArray JNICALL Java_org_witness_informa_wrappers_JpegWrapper_unpackRegion
- // (JNIEnv *, jobject, jstring, jint, jint);
+JNIEXPORT int JNICALL Java_org_witness_informa_wrappers_JpegWrapper_unpackRegion
+	(JNIEnv *, jobject, jstring, jstring, jbyteArray, int);
 
-/*
- * Class:     org_witness_informa_wrappers_JpegWrapper
- * Method:    sayHi
- * Signature: ()Ljava/lang/String;
- */
-JNIEXPORT jstring JNICALL Java_org_witness_informa_wrappers_JpegWrapper_sayHi
-  (JNIEnv *, jobject);
 
 #ifdef __cplusplus
 }

@@ -67,11 +67,27 @@
 								<li>
 									<a>Views</a>
 									<div class="ic_dropdown">
-										<ul>
-											<li>Normal View</li>
-											<li>Map View</li>
-											<li>Motion View</li>
-											<li>Network View</li>
+										<ul id="views_menu">
+											<li onclick="media.setCurrentView(View.NORMAL);">
+												<script type="text/javascript">
+													document.write(View_str.NORMAL);
+												</script>
+											</li>
+											<li onclick="media.setCurrentView(View.MAP);">
+												<script type="text/javascript">
+													document.write(View_str.MAP);
+												</script>
+											</li>
+											<li onclick="media.setCurrentView(View.MOTION);">
+												<script type="text/javascript">
+													document.write(View_str.MOTION);
+												</script>
+											</li>
+											<li onclick="media.setCurrentView(View.NETWORK);">
+												<script type="text/javascript">
+													document.write(View_str.NETWORK);
+												</script>
+											</li>
 										</ul>
 									</div>
 								</li>

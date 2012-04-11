@@ -29,16 +29,32 @@ var Menus = {
 	}
 };
 
+var Display_str = {
+	REDACTED: "Redacted",
+	UNREDACTED: "Unredacted"
+}
+
+var View_str = {
+	NORMAL: "Normal View",
+	MAP: "Map View",
+	MOTION: "Motion View",
+	NETWORK: "Network View"
+}
+
 var Metadata = {
 	Intent: {
 		label: "Intent",
 		SUBMITTED_BY: "Submitted by: %=sigKeyId",
-		OWNERSHIP_TYPE: "(Ownership type: %=ownershipType)"
+		OWNERSHIP_TYPE: "(Ownership type: %=ownershipType)",
+		OwnershipTypes: {
+			INDIVIDUAL: "Individual",
+			ORGANIZATION: "Organization"
+		}
 	},
 	Genealogy: {
 		label: "Genealogy",
 		DATE_CREATED: "Media created on: %=dateCreated",
-		DATE_ACQUIRED: "Acquired by Informa on: %=dateAcquired"
+		DATE_ACQUIRED: "Acquired by submitting device on: %=dateAcquired"
 	},
 	Data: {
 		label: "Data",
@@ -50,6 +66,15 @@ var Metadata = {
 			Integrity: {
 				label: "Device Integrity",
 				RATING: "InformaCam is %=deviceIntegrityRating % certain that this media was captured by the device indicated by its handset IMEI."
+			}
+		},
+		ImageRegions: {
+			label: "Image Regions",
+			Filters: {
+				IDENTIFY: "Identify",
+				PIXELATE: "Pixelate",
+				BACKGROUND_PIXELATE: "Background Pixelate",
+				REDACT: "Redact"
 			}
 		}
 	}

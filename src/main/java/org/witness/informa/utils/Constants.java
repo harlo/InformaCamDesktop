@@ -36,6 +36,7 @@ public interface Constants {
 	public final static class Callback {
 		public final static class Jpeg {
 			public final static String GET_METADATA = "getMetadata";
+			public final static String REVERSE_REDACTION = "reverseRedaction";
 			
 		}
 		

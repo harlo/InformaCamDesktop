@@ -7,18 +7,23 @@ function loadMedia() {
 
 function MediaStub() {
 	var mediaPaths, currentView, currentDisplay, availableDisplays;
-	var informa, type, title, submissionInfo;
+	var informa, type, title, submissionInfo, imageRegions;
 	var options;
 	
 	this.availableDisplays = new Array();
 	this.options = new Array();
+	this.imageRegions = {
+		types: new Array(),
+		list: new Array()
+	}
 	
 	this.attachMedia = function(data) {
 		this.informa = data;
 		
 		this.paths = {
 			local: null,
-			clone: null
+			redacted: null,
+			unredacted: null
 		};
 		
 		this.addDisplay(Display.REDACTED);
@@ -30,7 +35,7 @@ function MediaStub() {
 		);
 		
 		this.setPath(MediaPaths.LOCAL, this.informa.localPath);
-		this.setPath(MediaPaths.CLONE, this.informa.localPath.substring(
+		this.setPath(MediaPaths.REDACTED, this.informa.localPath.substring(
 			this.informa.localPath.lastIndexOf("/") + 1
 		));
 		
@@ -59,6 +64,27 @@ function MediaStub() {
 			action: media.viewSubmissionInfo
 		});
 		
+		
+		if(this.informa.data.imageRegions) {
+			$.each(this.informa.data.imageRegions, function(idx, item) {
+				var ir = item;
+				if(jQuery.inArray(ir.obfuscationType, media.imageRegions.types) == -1)
+					media.imageRegions.types.push(ir.obfuscationType);
+				media.imageRegions.list.push(ir);
+			});
+		}
+				
+		if(
+			this.imageRegions.types.length < 2 &&
+			(jQuery.inArray(ImageRegions.IDENTIFY.name, this.imageRegions.types) == -1)
+		) {
+			this.addDisplay(Display.UNREDACTED);
+			this.setPath(MediaPaths.UNREDACTED, this.informa.localPath.substring(
+				this.informa.localPath.lastIndexOf("/") + 1,
+				this.informa.localPath.length - 4
+			) + "_unredacted.jpg");
+		}
+			
 		placeMedia();
 	};
 	
@@ -78,11 +104,12 @@ function MediaStub() {
 		switch(which) {
 			case MediaPaths.LOCAL:
 				this.paths.local = path;
-				
 				break;
-			case MediaPaths.CLONE:
-				this.paths.clone = path;
+			case MediaPaths.REDACTED:
+				this.paths.redacted = path;
 				break;
+			case MediaPaths.UNREDACTED:
+				this.paths.unredacted = path;
 		}
 	};
 	
@@ -93,13 +120,14 @@ function MediaStub() {
 	this.setCurrentDisplay = function(display) {
 		if($.inArray(display, this.availableDisplays) != -1) {
 			this.currentDisplay = display;
+			switchDisplay();
 		} else {
 			showAlert(Alerts.Errors.MAIN_TITLE, Alerts.Errors.SELECTED_VIEW, false, {"%view": Display.Names[display]}, null);
 			switch(this.currentDisplay) {
-				case Displays.REDACTED:
+				case Display.REDACTED:
 					toggleValue(document.getElementById('display_redacted'));
 					break;
-				case Displays.UNREDACTED:
+				case Display.UNREDACTED:
 					toggleValue(document.getElementById('display_unredacted'));
 					break;
 			}

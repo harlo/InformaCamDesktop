@@ -1,14 +1,5 @@
 package org.witness.informa.utils;
 
-import org.witness.informa.utils.InformaConstants.Keys.CaptureEvent;
-import org.witness.informa.utils.InformaConstants.Keys.Events;
-import org.witness.informa.utils.InformaConstants.Keys.Genealogy;
-import org.witness.informa.utils.InformaConstants.Keys.Image;
-import org.witness.informa.utils.InformaConstants.Keys.Intent;
-import org.witness.informa.utils.InformaConstants.Keys.Location;
-import org.witness.informa.utils.InformaConstants.Keys.Suckers;
-import org.witness.informa.utils.InformaConstants.Keys.Video;
-
 public interface InformaConstants {
 		public final static String TAG = "************ INFORMA ***********";
 		public final static String READOUT = "******************* INFORMA READOUT ******************";
@@ -93,6 +84,13 @@ public interface InformaConstants {
 					public final static String INFORMED_CONSENT_GIVEN = "subject_informedConsentGiven";
 					public final static String PERSIST_FILTER = "subject_persistFilter";
 				}
+				
+				public final static class Filter {
+					public final static String PIXELATE = "org.witness.ssc.image.filters.PixelizeObscure";
+					public final static String BACKGROUND_PIXELATE = "org.witness.ssc.image.filters.CrowdPixelizeObscure";
+					public final static String REDACT = "org.witness.ssc.image.filters.SolidObscure";
+					public final static String IDENTIFY = "org.witness.ssc.image.filters.InformaTagger";
+				}
 			}
 			
 			public final static class Data {
@@ -151,6 +149,7 @@ public interface InformaConstants {
 				public final static String LOCATION_OF_ORIGINAL = "source_locationOfOriginal";
 				public final static String LOCATION_OF_OBSCURED_VERSION = "source_locationOfObscuredVersion";
 				public final static String EXIF = "exifData";
+				public final static String DIMENSIONS = "imageDimensions";
 			}
 			
 			public final static class Video {

@@ -28,17 +28,30 @@ JNIEXPORT jstring JNICALL Java_org_witness_informa_wrappers_JpegWrapper_getMetad
 	return out;
 }
 
-/*
-JNIEXPORT jbyteArray JNICALL Java_org_witness_informa_wrappers_JpegWrapper_unpackRegion
-  (JNIEnv *, jobject, jstring, jint, jint) {
+JNIEXPORT jint JNICALL Java_org_witness_informa_wrappers_JpegWrapper_unpackRegion
+  (JNIEnv *env, jobject obj, jstring fileName, jstring cloneFileName, jbyteArray redactedBytes, int length) {
+	const char* jpegFileName;
+	const char* jpegCloneFileName;
 
-}
-*/
+	char* rBytes = new char[length];
+	env->GetByteArrayRegion(redactedBytes, (jint)0, (jint)length, (jbyte*)rBytes);
 
-JNIEXPORT jstring JNICALL Java_org_witness_informa_wrappers_JpegWrapper_sayHi
-  (JNIEnv *env, jobject obj) {
+	std::vector<unsigned char> redactionPack(length);
+	memcpy(&redactionPack[0], rBytes, length);
 
-	jstring out = env->NewStringUTF("hello fromt he jni wrapper");
+	jpegFileName = (env)->GetStringUTFChars(fileName, NULL);
+	jpegCloneFileName = (env)->GetStringUTFChars(cloneFileName, NULL);
 
-	return out;
+	jpeg_redaction::Jpeg jpeg;
+	if(!jpeg.LoadFromFile(jpegFileName, true)) {
+		return 0;
+	}
+
+	jpeg_redaction::Redaction unpackedRegion;
+	unpackedRegion.Unpack(redactionPack);
+	jpeg.ReverseRedaction(unpackedRegion);
+
+	jpeg.Save(jpegCloneFileName);
+
+	return 1;
 }

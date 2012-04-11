@@ -123,7 +123,8 @@ public class InformaVideo extends File implements Informa, Constants, InformaCon
 	}
 
 	@Override
-	public void createClone() {
+	public File createClone(File dir, File original, String cloneName) {
+		return original;
 		
 	}
 

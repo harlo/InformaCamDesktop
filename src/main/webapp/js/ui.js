@@ -59,18 +59,8 @@ function placeMedia() {
 			'width' : media_frame.width(),
 			'height' : media_frame.height()
 		});
-		switch(media.type) {
-			case MediaTypes.IMAGE:
-				media_overlay.css({
-					'background-image': "url('images/session_cache/" + media.paths.clone + "')",
-					'background-repeat': 'no-repeat',
-					'background-size': 'contain',
-					'background-position': 'center'
-				});
-				break;
-			case MediaTypes.VIDEO:
-				break;
-		}
+		
+		switchDisplay();
 		
 		$("#media_title").html(media.title);
 		loadMediaOptions();
@@ -128,6 +118,29 @@ function setMetadata() {
 		$("#metadata_readout").append(readout);
 
 	});
+}
+
+function switchDisplay() {
+	var currentDisplay;
+	switch(media.currentDisplay) {
+		case Display.REDACTED:
+			currentDisplay = media.paths.redacted;
+			break;
+		case Display.UNREDACTED:
+			currentDisplay = media.paths.unredacted;
+			break;
+	}
+	
+	if(media.type == MediaTypes.IMAGE) {
+		media_overlay.css({
+			'background-image': "url('images/session_cache/" + currentDisplay + "')",
+			'background-repeat': 'no-repeat',
+			'background-size': 'contain',
+			'background-position': 'center'
+		});
+	} else if(media.type == MediaTypes.VIDEO) {
+	
+	}
 }
 
 function showAlert(title, txt, isDismissable, replacements, options) {
@@ -202,13 +215,7 @@ function initLayout() {
 	ui = {
 		media: {
 			root: $('#ui_media'),
-			tab: $(nav.children()[0]),
-			load: function() {
-				
-			},
-			unload: function() {
-				
-			}
+			tab: $(nav.children()[0])
 		},
 		submissions: {
 			root: $('#ui_submissions'),

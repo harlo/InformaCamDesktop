@@ -20,10 +20,9 @@ import org.witness.informa.utils.InformaConstants;
 
 public class JpegWrapper implements Constants, InformaConstants {
 	public native String getMetadata(String filename);
-	public native byte[] unpackRegion(String imageFilename, int regionStart, int regionLength);
-	public native String sayHi();
+	public native int unpackRegion(String imageFilename, String cloneFileName, byte[] regionData, int regionDataLength);
 	
-	ArrayList<Map<String, String>> commands;
+	ArrayList<Map<String, ArrayList<Object>>> commands;
 	ExecutorService ex;
 	public JpegWrapper wrapper;
 	
@@ -33,11 +32,11 @@ public class JpegWrapper implements Constants, InformaConstants {
 	
 	public JpegWrapper() {
 		ex = Executors.newFixedThreadPool(100);
-		commands = new ArrayList<Map<String, String>>();
+		commands = new ArrayList<Map<String, ArrayList<Object>>>();
 		wrapper = this;
 	}
 	
-	public JSONObject spawnCommand(Map<String, String> command) throws InterruptedException, ExecutionException {
+	public JSONObject spawnCommand(Map<String, ArrayList<Object>> command) throws InterruptedException, ExecutionException {
 		commands.add(command);
 		
 		Future<JSONObject> cmd = ex.submit(new JpegThread());
@@ -50,12 +49,20 @@ public class JpegWrapper implements Constants, InformaConstants {
 		public JSONObject call() throws Exception {
 			JSONObject result = new JSONObject();
 			
-			Map<String, String> command = commands.get(0);
+			Map<String, ArrayList<Object>> command = commands.get(0);
 			String method = command.keySet().iterator().next();
-			String[] params = command.get(method).split(",");
+			ArrayList<Object> args = command.get(method);
 			
 			if(method.equals(Callback.Jpeg.GET_METADATA)) {
-				result.put(method, wrapper.getMetadata(params[0]));
+				result.put(method, wrapper.getMetadata((String) args.get(0)));
+			} else if(method.equals(Callback.Jpeg.REVERSE_REDACTION)) {
+				result.put(method, wrapper.unpackRegion(
+						(String) args.get(0),
+						(String) args.get(1),
+						(byte[]) args.get(2),
+						(Integer) args.get(3)
+					)
+				);
 			}
 			
 			System.out.println(result.toString());
