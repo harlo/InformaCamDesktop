@@ -29,7 +29,6 @@ function MediaStub() {
 		this.addDisplay(Display.REDACTED);
 		this.type = this.informa.data.sourceType;
 		
-		this.setCurrentDisplay(Display.REDACTED);
 		this.title = this.informa.genealogy.localMediaPath.substring(
 			this.informa.genealogy.localMediaPath.lastIndexOf("/") + 1
 		);
@@ -74,9 +73,11 @@ function MediaStub() {
 			});
 		}
 				
-		if(
-			this.imageRegions.types.length < 2 &&
-			(jQuery.inArray(ImageRegions.IDENTIFY.name, this.imageRegions.types) == -1)
+		if(this.imageRegions.types.length > 0 &&
+			(
+				jQuery.inArray(ImageRegions.PIXELATE.name, this.imageRegions.types) != -1 ||
+				jQuery.inArray(ImageRegions.REDACT.name, this.imageRegions.types) != -1
+			)
 		) {
 			this.addDisplay(Display.UNREDACTED);
 			this.setPath(MediaPaths.UNREDACTED, this.informa.localPath.substring(
@@ -84,7 +85,8 @@ function MediaStub() {
 				this.informa.localPath.length - 4
 			) + "_unredacted.jpg");
 		}
-			
+		
+		this.setCurrentDisplay(Display.REDACTED);	
 		placeMedia();
 	};
 	

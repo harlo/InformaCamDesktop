@@ -69,6 +69,7 @@ var ImageRegions = {
 var ic, ui;
 var header, nav, footer, main, alert_holder;
 var metadata_readout, media_options, media_options_menu, media_frame, media_overlay, mcx;
+var frameRatio;
 
 function getNameByValue(group, value) {
 	var name;

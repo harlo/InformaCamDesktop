@@ -53,16 +53,52 @@ function toggleMediaView(state) {
 	}
 }
 
+function setImageRatio() {
+	var ratio = media.informa.imageDimensions[0]/media.informa.imageDimensions[1];
+	var displayWidth, displayHeight;
+	var maxWidth = media_frame.width() * 0.9;
+	var maxHeight = media_frame.height() * 0.9;
+	
+	if(
+		media.informa.imageDimensions[0] > media.informa.imageDimensions[1] &&
+		ratio <= 1
+	) {
+		displayWidth = maxWidth;
+		displayHeight = displayWidth * ratio;
+	} else if(media.informa.imageDimensions[1] >= maxHeight) {
+		displayHeight = maxHeight;
+		displayWidth = displayHeight/ratio;
+	} else if(media.informa.imageDimensions[0] == media.informa.imageDimensions[1]) {
+		displayHeight = displayWidth = maxHeight;
+	}
+	
+	var margLeft = (parseInt(maxWidth) - parseInt(displayWidth)) * 0.5;
+	var margTop = (parseInt(maxHeight) - parseInt(displayHeight)) * 0.5;
+	
+	console.info("max width: " + media_frame.width());
+	console.info("max height: " + media_frame.height());
+	
+	console.info("width: " + displayWidth);
+	console.info("height: " + displayHeight);
+
+	console.info("marLeft: " + margLeft);
+	console.info("margTop: " + margTop);
+	
+	media_overlay.prop({
+			'width' : displayWidth,
+			'height' : displayHeight
+	});
+	
+	media_overlay.css({
+		'margin-left': margLeft,
+		'margin-top': margTop
+	});
+}
+
 function placeMedia() {
 	if(media != null && media != undefined) {
-		media_overlay.prop({
-			'width' : media_frame.width(),
-			'height' : media_frame.height()
-		});
-		
-		switchDisplay();
-		
 		$("#media_title").html(media.title);
+		setImageRatio();
 		loadMediaOptions();
 		setMetadata();
 		toggleMediaView(true);
@@ -130,7 +166,7 @@ function switchDisplay() {
 			currentDisplay = media.paths.unredacted;
 			break;
 	}
-	
+		
 	if(media.type == MediaTypes.IMAGE) {
 		media_overlay.css({
 			'background-image': "url('images/session_cache/" + currentDisplay + "')",
