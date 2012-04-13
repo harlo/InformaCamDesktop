@@ -75,7 +75,7 @@ public class InformaImage extends File implements Informa, InformaConstants {
 	private void createUnredactedImage() throws DecoderException, IOException, InterruptedException, ExecutionException {
 		JSONArray imageRegions = informa.getJSONObject(Keys.Informa.DATA).getJSONArray(Data.IMAGE_REGIONS);
 		
-		File clone = new File(getAbsolutePath().replace(".jpg", "_unredacted.jpg"));
+		File clone = new File(CACHE_ROOT, getName().replace(".jpg", "_unredacted.jpg"));
 		BufferedImage copyTemplate = ImageIO.read(this);
 		Graphics2D g2D = copyTemplate.createGraphics();
 		g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -91,7 +91,7 @@ public class InformaImage extends File implements Informa, InformaConstants {
 				Map<String, ArrayList<Object>> command = new HashMap<String, ArrayList<Object>>();
 				ArrayList<Object> args = new ArrayList<Object>();
 				args.add(getAbsolutePath());
-				args.add(getAbsolutePath().replace(".jpg", i + ".jpg"));
+				args.add(CACHE_ROOT + getName().replace(".jpg", i + ".jpg"));
 				args.add(regionData);
 				args.add(regionData.length);
 				command.put(Callback.Jpeg.REVERSE_REDACTION, args);
@@ -102,13 +102,18 @@ public class InformaImage extends File implements Informa, InformaConstants {
 					
 					BufferedImage bareClone = ImageIO.read(new File((String) args.get(1)));
 					
+					int left = (coords.getInt(ImageRegion.LEFT) > 0) ? coords.getInt(ImageRegion.LEFT) : 0;
+					int top = (coords.getInt(ImageRegion.TOP) > 0) ? coords.getInt(ImageRegion.TOP) : 0;
+					int width = (dims.getInt(ImageRegion.WIDTH) > 0) ? dims.getInt(ImageRegion.WIDTH) : 0;
+					int height = (dims.getInt(ImageRegion.HEIGHT) > 0) ? dims.getInt(ImageRegion.HEIGHT) : 0;
+					
 					BufferedImage croppedRegion = AsyncScalr.crop(
 							bareClone, 
-							coords.getInt(ImageRegion.LEFT), 
-							coords.getInt(ImageRegion.TOP), 
-							dims.getInt(ImageRegion.WIDTH),
-							dims.getInt(ImageRegion.HEIGHT)).get();
-					ImageIO.write(croppedRegion, "jpg", new File(this.getAbsolutePath().replace(".jpg", "_r" + i + ".jpg")));
+							left, 
+							top, 
+							width,
+							height).get();
+					
 					g2D.drawImage(croppedRegion, coords.getInt(ImageRegion.LEFT), coords.getInt(ImageRegion.TOP), null);
 				}
 			}
@@ -116,7 +121,7 @@ public class InformaImage extends File implements Informa, InformaConstants {
 		
 		g2D.dispose();
 		ImageIO.write(copyTemplate, "jpg", clone);
-		createClone(new File(CACHE_ROOT), clone, clone.getName());
+		//createClone(new File(CACHE_ROOT), clone, clone.getName());
 		informa.put(Keys.Image.DIMENSIONS, new int[] {copyTemplate.getWidth(), copyTemplate.getHeight()});
 		
 	}

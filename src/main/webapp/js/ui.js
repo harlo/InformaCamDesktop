@@ -72,6 +72,9 @@ function setImageRatio() {
 		displayHeight = displayWidth = maxHeight;
 	}
 	
+	frameRatio = displayWidth/maxWidth;
+	console.info("frameRation is supposedly: " + frameRatio);
+	
 	var margLeft = (parseInt(maxWidth) - parseInt(displayWidth)) * 0.5;
 	var margTop = (parseInt(maxHeight) - parseInt(displayHeight)) * 0.5;
 	
@@ -122,6 +125,32 @@ function loadMediaOptions() {
 				})
 		);
 	});
+}
+
+function traceRegions() {
+	regionsTraced = true;
+	
+	mcx.lineWidth = 4;
+	$.each(media.imageRegions.list, function() {
+		if(this.obfuscationType == ImageRegions.IDENTIFY)
+			mcx.strokeStyle = Styles.Color.INACTIVE_TAGGED;
+		else
+			mcx.strokeStyle = Styles.Color.INACTIVE;
+			
+		mcx.strokeRect(
+			this.regionCoordinates.region_left, 
+			this.regionCoordinates.region_top,
+			this.regionDimensions.region_height,
+			this.regionDimensions.region_width
+		);
+		
+	});
+}
+
+function hideRegions() {
+	regionsTraced = false;
+	mcx.clearRect(0, 0, $(media_overlay).width(), $(media_overlay).height());
+	
 }
 
 function setMetadata() {

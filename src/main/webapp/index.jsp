@@ -46,10 +46,26 @@
 		</div>
 		
 		<ul id="ic_nav">
-			<li><a href="#media/">Media</a></li>
-			<li><a href="#submissions/">Submissions</a></li>
-			<li><a href="#admin/">Admin</a></li>
-			<li><a href="#help/">Help</a></li>
+			<li><a href="#media/">
+				<script type="text/javascript">
+					document.write(Menus.Main.MEDIA);
+				</script>
+			</a></li>
+			<li><a href="#submissions/">
+				<script type="text/javascript">
+					document.write(Menus.Main.SUBMISSIONS);
+				</script>
+			</a></li>
+			<li><a href="#admin/">
+				<script type="text/javascript">
+					document.write(Menus.Main.ADMIN);
+				</script>
+			</a></li>
+			<li><a href="#help/">
+				<script type="text/javascript">
+					document.write(Menus.Main.HELP);
+				</script>
+			</a></li>
 		</ul>
 	</div>
 	
@@ -98,9 +114,31 @@
 									</div>
 								</li>
 								<li class="ic_menu_buttonOverride">
-									Show Media As: 
+									<span>Display: </span>
 									<div class="ic_toggle" id="mediaView">
-										<a id="display_redacted" onclick="toggleValue(this);media.setCurrentDisplay(Display.REDACTED);" rel="redacted" class="selected">Redacted</a><a id="display_unredacted" onclick="toggleValue(this);media.setCurrentDisplay(Display.UNREDACTED);" rel="unredacted">Unredacted</a>
+										<a id="display_redacted" onclick="toggleValue(this);media.setCurrentDisplay(Display.REDACTED);" rel="redacted" class="selected">
+											<script type="text/javascript">
+												document.write(Display_str.REDACTED);
+											</script>
+										</a><a id="display_unredacted" onclick="toggleValue(this);media.setCurrentDisplay(Display.UNREDACTED);" rel="unredacted">
+											<script type="text/javascript">
+												document.write(Display_str.UNREDACTED);
+											</script>
+										</a>
+									</div>
+								</li>
+								<li class="ic_menu_buttonOverride">
+									<span>ImageRegion Tracing: </span>
+									<div class="ic_toggle" id="imageRegionView">
+										<a id="irTracing_on" onclick="toggleValue(this);traceRegions();" rel="tracingOn" class="selected">
+											<script type="text/javascript">
+												document.write(ImageRegion_str.ON);
+											</script>
+										</a><a id="irTracing_off" onclick="toggleValue(this);hideRegions();" rel="tracingOff">
+											<script type="text/javascript">
+												document.write(ImageRegion_str.OFF);
+											</script>
+										</a>
 									</div>
 								</li>
 							</ul>

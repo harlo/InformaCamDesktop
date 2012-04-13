@@ -66,10 +66,19 @@ var ImageRegions = {
 	}
 }
 
+var Styles = {
+	Color: {
+		ACTIVE: "#C6FF00",
+		INACTIVE: "#999999",
+		INACTIVE_TAGGED: "#8FAE22"
+	}
+}
+
 var ic, ui;
 var header, nav, footer, main, alert_holder;
 var metadata_readout, media_options, media_options_menu, media_frame, media_overlay, mcx;
 var frameRatio;
+var regionsTraced = true;
 
 function getNameByValue(group, value) {
 	var name;

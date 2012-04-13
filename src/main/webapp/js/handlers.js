@@ -6,6 +6,7 @@ function handleDesktopServiceMessage(data) {
 					if(!isEmptyObject(data.metadata)) {
 						media = new MediaStub();
 						media.attachMedia(data.metadata);
+						console.info("WHY U NO?");
 					} else {
 						console.info("this object is empty.  did user cancel?");
 					}

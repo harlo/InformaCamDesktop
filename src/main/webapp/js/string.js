@@ -26,6 +26,12 @@ var Menus = {
 		},
 		EXPORT_METADATA: "Export Metadata As...",
 		VIEW_SUBMISSION_INFO: "View Submission Info"
+	},
+	Main: {
+		MEDIA: "Media",
+		SUBMISSIONS: "Submissions",
+		ADMIN: "Admin",
+		HELP: "Help"
 	}
 };
 
@@ -39,6 +45,11 @@ var View_str = {
 	MAP: "Map View",
 	MOTION: "Motion View",
 	NETWORK: "Network View"
+}
+
+var ImageRegion_str = {
+	ON: "On",
+	OFF: "Off"
 }
 
 var Metadata = {

@@ -61,13 +61,12 @@ function parseForReplacementMetadata(item) {
 			
 			if(keywordEnd == -1) {
 				keywordEnd = keyword.indexOf(".");
-				
 			}
 			
 			if(keywordEnd != -1)
 				keyword = keyword.substring(0, keywordEnd);
 				
-			mod = item[0].replace(keyword, '<a href="#details/' + keyword.substring(2) + '/' + escape(item[1]) + '">' + item[1] + '</a>');
+			mod = item[0].replace(keyword, '<a href="#details/' + keyword.substring(2) + '/' + encodeURIComponent(item[1]) + '">' + item[1] + '</a>');
 		} else
 			mod = item[1];
 	}
