@@ -39,9 +39,10 @@ public class InformaImage extends File implements Informa, InformaConstants {
 	
 	public JpegWrapper context;
 
-
 	public InformaImage(String path) {
 		super(path);
+		
+		Log(TAG, "HELLO INFORMA IMAGE!");
 		
 		context();
 		Map<String, ArrayList<Object>> command = new HashMap<String, ArrayList<Object>>();
@@ -168,4 +169,7 @@ public class InformaImage extends File implements Informa, InformaConstants {
 		return clone;
 	}
 	
+	private void Log(String tag, String msg) {
+		System.out.println("***** " + tag + " ******: " + msg);
+	}
 }

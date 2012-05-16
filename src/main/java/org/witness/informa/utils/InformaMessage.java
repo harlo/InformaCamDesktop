@@ -10,6 +10,7 @@ import org.witness.informa.utils.Constants.DC.Keys;
 public class InformaMessage implements Constants {
 	public Map<String, Object> in;
 	public Map<String, Object> out;
+	public Map<String, Object> opts;
 	
 	public static Map<String, Object> in(Message msg) {
 		Map<String, Object> in = msg.getDataAsMap();
@@ -42,6 +43,10 @@ public class InformaMessage implements Constants {
 	
 	public InformaMessage(Message msg) {
 		this.in = in(msg);
+		if(this.in.containsKey(DC.Keys.OPTIONS))
+			this.opts = (Map<String, Object>) this.in.get(DC.Keys.OPTIONS);
+		else
+			this.opts = null;
 		System.out.println("INPUT: " + this.in.toString());
 	}
 }

@@ -11,7 +11,7 @@ import org.witness.informa.utils.InformaMessage;
 import org.witness.informa.utils.MediaLoader;
 
 public class DesktopService extends AbstractService implements Constants {
-	MediaLoader ml;
+	MediaLoader ml = null;
 	
 	public DesktopService(BayeuxServer bayeux) {
 		super(bayeux, "desktopConnection");
@@ -23,11 +23,20 @@ public class DesktopService extends AbstractService implements Constants {
 		if(msg.in.containsKey(Attempts.TAG)) {
 			long l = (Long) msg.in.get(Attempts.TAG);
 			switch((int) l) {
+			case Attempts.CHOOSE_MEDIA:
+				if(ml == null)
+					ml = new MediaLoader();
+				
+				msg.put(DC.Keys.COMMAND, DC.Commands.CHOOSE_MEDIA);
+				msg.put(DC.Keys.METADATA, ml.getSubmissions());
+				break;
 			case Attempts.LOAD_MEDIA:
 				try {
-					ml = new MediaLoader();
+					if(ml == null)
+						ml = new MediaLoader();
+					
 					msg.put(DC.Keys.COMMAND, DC.Commands.LOAD_MEDIA);
-					msg.put(DC.Keys.METADATA, ml.loadMedia());
+					msg.put(DC.Keys.METADATA, ml.loadMedia((String) msg.opts.get(DC.Options.LOCAL_MEDIA_PATH)));
 					
 				} catch (Exception e) {
 					Log(e.toString());

@@ -6,18 +6,49 @@ import java.util.Map;
 
 public interface Constants {
 	public final static String LOG = "***** InformaScratchbed: ";
-	public final static String APP_ROOT = "/Users/LvH/ORG/witness/InformaCamDesktop/";
+	public final static String WEB_ROOT = "/var/www/";
+	public final static String APP_ROOT = WEB_ROOT + "InformaCamDesktop/";
 	public final static String CACHE_ROOT = APP_ROOT + "src/main/webapp/images/session_cache/";
+	
+	public final static class Couch {
+		public static String ERROR = "COUCH ERROR";
+		public static String INFO = "COUCH INFO";
+		public static String DEBUG = "COUCH DEBUG";
+		
+		public final static class Documents {
+			public final static String _ID = "_id";
+			public final static String _REV = "_rev";
+		}
+		
+		public final static class Views {
+			public final static class Submissions {
+				public final static String GET_BY_HASHED_PGP = "hashed_pgp";
+				public final static String GET_BY_MEDIA_TYPE = "media_type";
+				public final static class GetByTimestamp {
+					public final static String RECEIVED = "timestamp_received";
+					public final static String SUBMITTED = "timestamp_submitted";
+					public final static String CREATED = "timestamp_created";
+				}
+			}
+			
+			public final static class Sources {
+				
+			}
+		}
+		
+	}
 	
 	public final static class DC {
 		public final static String RESPONSE = "response";
 		
 		public final static class Attempts {
 			public final static String TAG = "attempt";
+			public final static int CHOOSE_MEDIA = 99;
 			public final static int LOAD_MEDIA = 100;
 		}
 		
 		public final static class Commands {
+			public final static int CHOOSE_MEDIA = DC.Attempts.CHOOSE_MEDIA;
 			public final static int LOAD_MEDIA = DC.Attempts.LOAD_MEDIA;
 			public final static int WAIT_FOR_PROCESS = 101;
 		}
@@ -29,6 +60,13 @@ public interface Constants {
 			public final static String INTERRUPT = "interrupt";
 			public final static String WAIT_CODE = "waitCode";
 			public final static String MESSAGE = "message";
+			public final static String OPTIONS = "options";
+		}
+		
+		public final static class Options {
+			public final static String _ID = Couch.Documents._ID;
+			public final static String _REV = Couch.Documents._REV;
+			public final static String LOCAL_MEDIA_PATH = "attachment";
 		}
 		
 	}

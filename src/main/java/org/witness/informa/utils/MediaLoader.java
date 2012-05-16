@@ -10,15 +10,19 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map.Entry;
+import java.util.concurrent.ExecutionException;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 
+import net.sf.json.JSONException;
 import net.sf.json.JSONObject;
 
 import org.witness.informa.utils.Constants.Media.MediaTypes;
 import org.witness.informa.wrappers.FfmpegWrapper;
 import org.witness.informa.wrappers.JpegWrapper;
+
+import com.fourspaces.couchdb.*;
 
 public class MediaLoader implements Constants {
 	InformaVideo video;
@@ -26,7 +30,21 @@ public class MediaLoader implements Constants {
 	
 	public int mediaType = 0;
 	
-	public MediaLoader() {}
+	public Database dbSubmissions, dbSources;
+	public Document docSubmissions, docSources;
+	
+	public MediaLoader() {
+		Session dbSession = new Session("localhost", 5984);
+		dbSubmissions = dbSession.getDatabase("submissions");
+		dbSources = dbSession.getDatabase("sources");
+		
+		try {
+			docSubmissions = dbSubmissions.getDocument("_design/submissions");
+			docSources = dbSources.getDocument("_design/sources");
+		} catch(IOException e) {
+			CouchParser.Log(Couch.ERROR, e.toString());
+		}
+	}
 	
 	private void initVideo(String path) throws Exception {
 		video = new InformaVideo(path);
@@ -38,33 +56,53 @@ public class MediaLoader implements Constants {
 		video = null;
 	}
 	
-	public JSONObject loadMedia() throws Exception {
-		JSONObject loadedData = new JSONObject();
-		// open file chooser
-		JFileChooser chooser = new JFileChooser(Media.PATH_START);
-		chooser.setFileFilter(new MediaPicker());
-		int choice = chooser.showOpenDialog(null);
+	public ArrayList<JSONObject> getSubmissions() {
+		return CouchParser.getRows(dbSubmissions, docSubmissions, Couch.Views.Submissions.GET_BY_MEDIA_TYPE, new String[] {"hashed_key"});
+	}
+	
+	public ArrayList<JSONObject> getSources() {
+		ArrayList<JSONObject> sourcesList = new ArrayList<JSONObject>();
 		
-		if(choice == JFileChooser.APPROVE_OPTION) {
-			int mimeType = MediaPicker.MapFileType(chooser.getSelectedFile().getName().substring(chooser.getSelectedFile().getName().lastIndexOf(".")));
-			switch(mimeType) {
-			case Media.MimeTypes.JPEG:
-				image = new InformaImage(chooser.getSelectedFile().getAbsolutePath());
-				mediaType = MediaTypes.IMAGE;
-				loadedData = image.informa;
-				break;
-			case Media.MimeTypes.MP4:
-				video = new InformaVideo(chooser.getSelectedFile().getAbsolutePath());
-				mediaType = MediaTypes.VIDEO;
-				break;
-			case Media.MimeTypes.MKV:
-				video = new InformaVideo(chooser.getSelectedFile().getAbsolutePath());
-				mediaType = MediaTypes.VIDEO;
-				loadedData = video.metadata;
-				break;
+		return sourcesList;
+	}
+	
+	public JSONObject loadMedia(String path) {
+		JSONObject loadedData = new JSONObject();
+		int mimeType = MediaPicker.MapFileType(path.substring(path.lastIndexOf(".")));
+		switch(mimeType) {
+		case Media.MimeTypes.JPEG:
+			image = new InformaImage(WEB_ROOT + path);
+			mediaType = MediaTypes.IMAGE;
+			loadedData = image.informa;
+			break;
+		case Media.MimeTypes.MP4:
+			try {
+				video = new InformaVideo(WEB_ROOT + path);
+			} catch (JSONException e) {
+				CouchParser.Log(Couch.ERROR, e.toString());
+			} catch (InterruptedException e) {
+				CouchParser.Log(Couch.ERROR, e.toString());
+			} catch (ExecutionException e) {
+				CouchParser.Log(Couch.ERROR, e.toString());
 			}
-			
+			mediaType = MediaTypes.VIDEO;
+			break;
+		case Media.MimeTypes.MKV:
+			try {
+				video = new InformaVideo(WEB_ROOT + path);
+			} catch (JSONException e) {
+				CouchParser.Log(Couch.ERROR, e.toString());
+			} catch (InterruptedException e) {
+				CouchParser.Log(Couch.ERROR, e.toString());
+			} catch (ExecutionException e) {
+				CouchParser.Log(Couch.ERROR, e.toString());
+			}
+			mediaType = MediaTypes.VIDEO;
+			loadedData = video.metadata;
+			break;
 		}
+		
+		
 		return loadedData;
 	}
 	
