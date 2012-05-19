@@ -1,3 +1,10 @@
+function chooseMedia() {
+	showSpinner();
+	broadcast({
+		attempt: Command.CHOOSE_MEDIA
+	});
+}
+
 function loadMedia() {
 	showAlert(Alerts.MediaLoading.MAIN_TITLE, Alerts.MediaLoading.SELECT_MEDIA, false, null);
 	broadcast({
@@ -139,5 +146,4 @@ function MediaStub() {
 	this.setCurrentView = function(view) {
 		this.currentView = view;
 	};
-	
 }

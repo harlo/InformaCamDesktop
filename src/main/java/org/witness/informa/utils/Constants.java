@@ -45,12 +45,14 @@ public interface Constants {
 			public final static String TAG = "attempt";
 			public final static int CHOOSE_MEDIA = 99;
 			public final static int LOAD_MEDIA = 100;
+			public final static int VIEW_SUBMISSIONS = 102;
 		}
 		
 		public final static class Commands {
 			public final static int CHOOSE_MEDIA = DC.Attempts.CHOOSE_MEDIA;
 			public final static int LOAD_MEDIA = DC.Attempts.LOAD_MEDIA;
 			public final static int WAIT_FOR_PROCESS = 101;
+			public final static int VIEW_SUBMISSIONS = DC.Attempts.VIEW_SUBMISSIONS;
 		}
 		
 		public final static class Keys {

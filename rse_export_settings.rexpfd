@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<rexpfd>
+    <destination path="VIDEOCLASH-2.ec2-50-19-11-137.compute-1.amazonaws.com:/var/www/InformaCamDesktop"/>
+    <options createDirectoryStructure="false" createSelectedOnly="true" descriptionFilePath="/InformaCamDesktop/rse_export_settings.rexpfd" overWriteExistingFiles="true" saveSettings="true"/>
+    <selectedElements>
+        <file path="/InformaCamDesktop/.classpath"/>
+        <file path="/InformaCamDesktop/.project"/>
+        <file path="/InformaCamDesktop/pom.xml"/>
+        <file path="/InformaCamDesktop/rse_export_settings.rexpfd"/>
+        <folder path="/InformaCamDesktop/src/main/java/org"/>
+    </selectedElements>
+</rexpfd>

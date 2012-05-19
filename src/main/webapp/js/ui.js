@@ -4,6 +4,10 @@ function clearUi() {
 		if(this.tab)
 			this.tab.removeClass("active");
 	});
+	
+	alert_holder.css('display','none');
+	popup_holder.css('display','none');
+	spinner_holder.css('display','none');
 }
 
 function toggleValue(el, isMulti) {
@@ -22,6 +26,8 @@ function launchUi(which) {
 	which.root.css('display','block');
 	if(which.tab)
 		which.tab.addClass("active");
+	if(which.init)
+		which.init.call();
 }
 
 function showMenu(root, which) {
@@ -208,6 +214,30 @@ function switchDisplay() {
 	}
 }
 
+function showSpinner() {
+	spinner_holder.css('display','block');
+}
+
+function removeSpinner() {
+	spinner_holder.css('display','none');
+}
+
+function showPopup(title, content) {
+	if(title == undefined || title == null) {
+		title = $("#popup_title").html();
+	}
+	
+	$("#popup_title").html(title);
+	$("#popup_content").empty();
+	$("#popup_content").append(content);
+	
+	popup_holder.css('display','block');
+}
+
+function removePopup() {
+	popup_holder.css('display','none');
+}
+
 function showAlert(title, txt, isDismissable, replacements, options) {
 	if(title == undefined || title == null) {
 		title = $("#alert_title").html();
@@ -255,6 +285,18 @@ function removeAlert() {
 	alert_holder.css('display','none');
 }
 
+function populateTable(data, root) {
+	var table = $(root).children("table")[0];
+	$.each($($(table).children("tbody")[0]).children("tr"), function() {
+		if(!$(this).hasClass("tr_header"))
+			$(this).remove();
+	});
+	
+	$.each(data, function() {
+		$(table).append(this);
+	});
+}
+
 function initLayout() {
 	header = $('#ic_header');
 	nav = $('#ic_nav');
@@ -275,7 +317,11 @@ function initLayout() {
 	alert_holder = $("#alert_holder");
 	alert_holder.css('margin-top', ($(window).height()/2) -100);
 	
+	popup_holder = $("#popup_holder");
+	popup_holder.css('margin-top', $(window).height()/4);
 	
+	spinner_holder = $("#spinner_holder");
+	spinner_holder.css('margin-top', $(window).height()/2 - 100);
 	
 	ui = {
 		media: {
@@ -284,7 +330,11 @@ function initLayout() {
 		},
 		submissions: {
 			root: $('#ui_submissions'),
-			tab: $(nav.children()[1])
+			tab: $(nav.children()[1]),
+			init: function() {
+				getSubmissions();
+				
+			}
 		},
 		admin: {
 			root: $('#ui_admin'),
@@ -326,6 +376,10 @@ function initLayout() {
 		$(this).removeClass('hover');
 	});
 	
+	$(".tr_header td").click(function() {
+		resortListBy($(this).attr('id'));
+	});
+	
 	toggleMediaView(false);
 	
 	ic = Sammy("#ic_main", function() {
@@ -340,7 +394,7 @@ function initLayout() {
 		this.get('#submissions/', function() {
 			launchUi(ui.submissions);
 		});
-		
+				
 		this.get('#admin/', function() {
 			launchUi(ui.admin);
 		});
@@ -351,6 +405,11 @@ function initLayout() {
 		
 		this.get('#details/:dType/:dId', function() {
 			launchUi(ui.details);
+		});
+		
+		$(".ic_toMedia").live('click', function() {
+			window.location = '#media/';	//why does sammy.redirect not work?
+			selectSubmission(this);
 		});
 		
 	});

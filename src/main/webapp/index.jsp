@@ -9,6 +9,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/org/cometd.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/jquery/jquery.cometd.js"></script>
     <script type="text/javascript" src="js/application.js"></script>
+    <script type="text/javascript" src="js/formatter.js"></script>
     <%--
     The reason to use a JSP is that it is very easy to obtain server-side configuration
     information (such as the contextPath) and pass it to the JavaScript environment on the client.
@@ -23,15 +24,25 @@
 	<script type="text/javascript" src="js/sammy.js"></script>
 	<script type="text/javascript" src="js/ui.js"></script>
 	<script type="text/javascript" src="js/media.js"></script>
+	<script type="text/javascript" src="js/submissions.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/ic.css" />
     <title>InformaCam - powered by The Guardian Project</title>
 </head>
 <body>
+	<div id="spinner_holder">
+		<img src="images/spinner_gif.gif" />
+	</div>
 	<div id="alert_holder">
 		<h1 id="alert_title"></h1>
 		<div id="alert_text"></div>
 		<div id="alert_options"></div>
 	</div>
+	
+	<div id="popup_holder">
+		<h1 id="popup_title"></h1>
+		<div id="popup_content"></div>
+	</div>
+	
 	<div id="ic_header">
 		<div id="ic_logo">
 			<table>
@@ -78,7 +89,7 @@
 						<div id="media_options">
 							<ul class="ic_menu_button">
 								<li>
-									<a onclick="loadMedia();">Load...</a>
+									<a onclick="chooseMedia();">Load...</a>
 								</li>
 								<li>
 									<a>Views</a>
@@ -156,7 +167,40 @@
 		</div>
 		
 		<div id="ui_submissions">
-			<h1>submissions main</h1>
+			<table>
+				<tr class="tr_header">
+					<td id="submissions_filename">
+						<script type="text/javascript">
+							document.write(Submissions_str.FILENAME);
+						</script>
+					</td>
+					<td id="submissions_mediaType">
+						<script type="text/javascript">
+							document.write(Submissions_str.MEDIA_TYPE);
+						</script>
+					</td>
+					<td id="submissions_timeCreated">
+						<script type="text/javascript">
+							document.write(Submissions_str.TIME_CREATED);
+						</script>
+					</td>
+					<td id="submissions_timeSubmitted">
+						<script type="text/javascript">
+							document.write(Submissions_str.TIME_SUBMITTED);
+						</script>
+					</td>
+					<td id="submissions_timeReceived">
+						<script type="text/javascript">
+							document.write(Submissions_str.TIME_RECEIVED);
+						</script>
+					</td>
+					<td id="submissions_submittedBy">
+						<script type="text/javascript">
+							document.write(Submissions_str.SUBMITTED_BY);
+						</script>
+					</td>
+				</tr>
+			</table>
 		</div>
 		
 		<div id="ui_admin">

@@ -12,6 +12,18 @@ body {
 
 /*--------------------------------------
 Layout*/
+#spinner_holder {
+	position:absolute;
+	z-index:101;
+	width:10%;
+	height:80px;
+	text-align:center;
+	background-color:#c6ff00;
+	border:1px solid #444;
+	margin:0 0 0 48%;
+	padding:10px 0 0 0;
+}
+
 #alert_holder {
 	position:absolute;
 	z-index:100;
@@ -22,7 +34,6 @@ Layout*/
 	border:1px solid #444;
 	margin:0 0 0 35%;
 	padding:0;
-	display:none;
 }
 
 #alert_text {
@@ -39,6 +50,23 @@ Layout*/
 	padding:2px 10px;
 	background-color:#8fae22;
 	cursor:pointer;
+}
+
+#popup_holder {
+	position:absolute;
+	z-index:99;
+	width:45%;
+	height:350px;
+	border:1px solid #444;
+	margin:0 0 0 25%;
+	padding:0;
+}
+
+#popup_content {
+	height:300px;
+	width:auto;
+	padding:4px;
+	background-image:url('../images/ic_trans_blk.png');
 }
 
 #ic_header, #ic_main, #ic_footer {
@@ -120,6 +148,18 @@ Typography*/
 #alert_text {
 	font-size:0.55em;
 	text-align:left;
+}
+
+#popup_title {
+	font-size:0.65em;
+	padding:10px 4px;
+	background-color:#c6ff00;
+	font-weight:normal;
+	color:#8FAE22;
+}
+
+#popup_content ul li {
+	font-size:0.55em;
 }
 
 #ic_logo h1 {
@@ -210,8 +250,32 @@ p {
 	cursor:pointer;
 }
 
+#ui_submissions table td {
+	color:#444444;
+	font-size:0.55em;
+}
+
+#ui_submissions table tr.tr_header td {
+	color:#8FAE22;
+	font-size:0.65em;
+}
+
 /*--------------------------------------
-Lists*/
+Lists & Tables*/
+#popup_content ul {
+	margin:0;
+	padding:0;
+	list-style-type:none;
+}
+
+#popup_content ul li {
+	background-color:#cccccc;
+	border:1px solid #444444;
+	padding:4px;
+	margin-bottom:4px;
+	cursor:pointer;
+}
+
 #ic_nav {
 	list-style-type:none;
 	margin:0;
@@ -288,6 +352,24 @@ ul.ic_menu_button li.ic_menu_buttonOverride {
 	border:none;
 	color:#fff;
 	cursor:default;
+}
+
+#ui_submissions table tr {
+	background-color:#cccccc;
+}
+
+#ui_submissions table td {
+	border:1px solid #444444;
+	padding:4px 12px;
+}
+
+#ui_submissions table tr.tr_header td {
+	background-color:#C6FF00;
+	cursor:pointer;
+}
+
+td.ic_toMedia {
+	cursor:pointer;
 }
 
 /*--------------------------------------

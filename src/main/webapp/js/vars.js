@@ -2,20 +2,28 @@ var cometd;
 var dc = '/service/desktopConnection';
 
 var Command = {
+	CHOOSE_MEDIA: 99,
 	LOAD_MEDIA: 100,
-	WAIT_FOR_PROCESS: 101
+	WAIT_FOR_PROCESS: 101,
+	VIEW_SUBMISSIONS: 102
 };
 
 var media;
 var MediaTypes = {
 	VIDEO: 102,
-	IMAGE: 101
+	IMAGE: 101,
+	Names: {
+		102: MediaTypes_str.VIDEO,
+		101: MediaTypes_str.IMAGE
+	}
 };
+
 var MediaPaths = {
 	LOCAL: 200,
 	REDACTED: 201,
 	UNREDACTED: 202
-}
+};
+
 var Display = {
 	REDACTED: 200,
 	UNREDACTED: 201,
@@ -23,7 +31,7 @@ var Display = {
 		200: Display_str.REDACTED,
 		201: Display_str.UNREDACTED
 	}
-}
+};
 
 var View = {
 	NORMAL : 300,
@@ -36,7 +44,7 @@ var View = {
 		302: View_str.MOTION,
 		303: View_str.NETWORK
 	}
-}
+};
 
 var OwnershipTypes = {
 	INDIVIDUAL: 400,
@@ -45,7 +53,7 @@ var OwnershipTypes = {
 		400: Metadata.Intent.OwnershipTypes.INDIVIDUAL,
 		401: Metadata.Intent.OwnershipTypes.ORGANIZATION
 	}
-}
+};
 
 var ImageRegions = {
 	IDENTIFY: {
@@ -64,7 +72,7 @@ var ImageRegions = {
 		name: "org.witness.ssc.image.filters.SolidObscure",
 		label: Metadata.Data.ImageRegions.Filters.REDACT
 	}
-}
+};
 
 var Styles = {
 	Color: {
@@ -72,10 +80,10 @@ var Styles = {
 		INACTIVE: "#999999",
 		INACTIVE_TAGGED: "#8FAE22"
 	}
-}
+};
 
 var ic, ui;
-var header, nav, footer, main, alert_holder;
+var header, nav, footer, main, alert_holder, popup_holder, spinner_holder;
 var metadata_readout, media_options, media_options_menu, media_frame, media_overlay, mcx;
 var frameRatio;
 var regionsTraced = true;

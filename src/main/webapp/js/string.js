@@ -1,3 +1,55 @@
+var TimeAndDate = {
+	Days: {
+		SHORT: [
+			"Mon",
+			"Tue",
+			"Wed",
+			"Thu",
+			"Fri",
+			"Sat",
+			"Sun"
+		],
+		LONG: [
+			"Monday",
+			"Tuesday",
+			"Wednesday",
+			"Thursday",
+			"Friday",
+			"Saturday",
+			"Sunday"
+		]
+	},
+	Months: {
+		SHORT: [
+			"Jan",
+			"Feb",
+			"Mar",
+			"Apr",
+			"May",
+			"Jun",
+			"Jul",
+			"Aug",
+			"Sep",
+			"Oct",
+			"Nov",
+			"Dec"
+		],
+		LONG: [
+			"January",
+			"February",
+			"March",
+			"April",
+			"May",
+			"June",
+			"July",
+			"August",
+			"September",
+			"October",
+			"December"
+		]
+	}
+};
+
 var Alerts = {
 	Errors: {
 		MAIN_TITLE: "Error",
@@ -13,6 +65,28 @@ var Alerts = {
 		YES: "Yes",
 		NO: "No",
 		OK: "OK"
+	},
+	Submissions: {
+		MAIN_TITLE: "No Submissions",
+		NO_NEW_SUBMISSIONS: "There are no submissions for you to view."
+		
+	}
+};
+
+var Submissions = {
+	MAIN_TITLE: "Submissions",
+	CHOOSER_TITLE: "Please choose an image/video...",
+	Fields: {
+		FILENAME: "Filename",
+		MEDIA_TYPE: "Media Type",
+		SIZE: "Size",
+		TIME_SUBMITTED: "Time Submitted",
+		TIME_CREATED: "Time Created",
+		TIME_RECEIVED: "Time Received",
+		SUBMITTED: "Submitted on",
+		SUBMITTED_BY: "Submitted by",
+		UNKNOWN: "unknown",
+		N_A: "n/a"
 	}
 };
 
@@ -35,6 +109,19 @@ var Menus = {
 	}
 };
 
+var Submissions_str = {
+	FILENAME: "Filename",
+	MEDIA_TYPE: "Media Type",
+	SIZE: "Size",
+	TIME_SUBMITTED: "Time Submitted",
+	TIME_CREATED: "Time Created",
+	TIME_RECEIVED: "Time Received",
+	SUBMITTED: "Submitted on",
+	SUBMITTED_BY: "Submitted by",
+	UNKNOWN: "unknown",
+	N_A: "n/a"
+}
+
 var Display_str = {
 	REDACTED: "Redacted",
 	UNREDACTED: "Unredacted"
@@ -45,6 +132,11 @@ var View_str = {
 	MAP: "Map View",
 	MOTION: "Motion View",
 	NETWORK: "Network View"
+}
+
+var MediaTypes_str = {
+	IMAGE: "Image",
+	VIDEO: "Video"
 }
 
 var ImageRegion_str = {

@@ -57,7 +57,7 @@ public class MediaLoader implements Constants {
 	}
 	
 	public ArrayList<JSONObject> getSubmissions() {
-		return CouchParser.getRows(dbSubmissions, docSubmissions, Couch.Views.Submissions.GET_BY_MEDIA_TYPE, new String[] {"hashed_key"});
+		return CouchParser.getRows(dbSubmissions, docSubmissions, Couch.Views.Submissions.GET_BY_MEDIA_TYPE, new String[] {"hashed_pgp"});
 	}
 	
 	public ArrayList<JSONObject> getSources() {
