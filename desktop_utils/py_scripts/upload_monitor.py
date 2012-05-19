@@ -9,7 +9,10 @@ web_root = '/var/www/'
 new_submission_query = 'submissions/'
 get_unregistered_query = 'upload_tracker/_design/tracker/_view/bytes_transfered'
 remove_submission_query = 'upload_tracker/%s?rev=%s'
-log_template = '{"timestamp": %s, "entity": {"id": %s, "rev": %s}, "message": %s, "process": "upload_monitor.py"}'
+log_template = '{"timestamp": "%s", "entity": {"id": "%s", "rev": "%s"}, "message": "%s", "process": "upload_monitor.py"}'
+submission_template = '{"hashed_pgp": "%s", "media_type": %d, "timestamp_received": %d, "timestamp_submitted": %d, "attachment": "%s"}'
+media_type_IMAGE = 101
+media_type_VIDEO = 102
 
 def hashFile(filename, block_size=2**14):
 	md5 = hashlib.md5()
@@ -35,12 +38,24 @@ class Submission(object):
 		# if out is not "", that folder already existed...
 		# make of that what you will
 		
-		move_item = subprocess.Popen(["cp", web_root + oldAttachment, submissions_root + self.hashed_key + "/" + oldAttachment.split('/')[len(oldAttachment.split('/')) - 1]], stdout=subprocess.PIPE)
+		attachment_root = oldAttachment.split('/')[len(oldAttachment.split('/')) - 1]
+		move_item = subprocess.Popen(["cp", web_root + oldAttachment, submissions_root + self.hashed_key + "/" + attachment_root], stdout=subprocess.PIPE)
 		out = move_item.communicate()[0]
 		if out == "":
 			# hash the file and create its folder
-			make_hashfile = subprocess.Popen(["mkdir", messages_root + hashFile(oldAttachment)], stdout=subprocess.PIPE)
+			make_hashfile = subprocess.Popen(["mkdir", messages_root + hashFile(web_root + oldAttachment)], stdout=subprocess.PIPE)
 			out = make_hashfile.communicate()[0]
+			if attachment_root.split(".")[len(attachment_root.split(".")) - 1] == '.jpg':
+				media_type = media_type_IMAGE
+			elif attachment_root.split(".")[len(attachment_root.split(".")) - 1] == '.mp4':
+				media_type = media_type_VIDEO
+			elif attachment_root.split(".")[len(attachment_root.split(".")) - 1] == '.mkv':
+				media_type = media_type_VIDEO
+			else:
+				media_type = media_type_IMAGE
+				
+			
+			self.sub_string = (submission_template % (hashFile(web_root + oldAttachment), media_type, self.timestamp_received, self.timestamp_submitted, submissions_root + self.hashed_key +"/" + attachment_root)).__str__()
 			return True
 		else:
 			return False
@@ -49,6 +64,10 @@ class Submission(object):
 		curl = DoCurl((remove_submission_query % (id, rev)).__str__())
 		curl.setMethod('DELETE')
 		return curl.perform()
+		
+	def registerUpload(self):
+		register_upload = subprocess.Popen(["curl","http://admin:narnia39@localhost:5984/submissions/","-H","Content-Type: application/json","-d", (self.sub_string).__str__()], stdout=subprocess.PIPE)
+		return register_upload.communicate()[0]
 				
 
 class DoCurl(object):
@@ -83,6 +102,7 @@ class Monitor():
 			curl = DoCurl(get_unregistered_query)
 			j = curl.perform()
 			rows = j['rows']
+			#print "checking for unregistered uploads... (%d found)" % len(rows)
 			if len(rows) > 0:
 				LOG = open(self.logfile_path,"w")
 				for row in rows:
@@ -95,6 +115,8 @@ class Monitor():
 							if remove['ok'] == True:
 								log_content = (log_template % (str(datetime.now()), vals['_id'], vals['_rev'], 'Media removed from upload queue')).__str__()
 								LOG.write(log_content)
+								sub_register = sub.registerUpload()
+								#print sub_register
 						
 						else:
 							log_content = (log_template % (str(datetime.now()), vals['_id'], vals['_rev'], 'Could not copy uploaded file')).__str__()

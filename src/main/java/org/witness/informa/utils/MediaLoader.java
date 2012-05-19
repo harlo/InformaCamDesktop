@@ -71,13 +71,13 @@ public class MediaLoader implements Constants {
 		int mimeType = MediaPicker.MapFileType(path.substring(path.lastIndexOf(".")));
 		switch(mimeType) {
 		case Media.MimeTypes.JPEG:
-			image = new InformaImage(WEB_ROOT + path);
+			image = new InformaImage(path);
 			mediaType = MediaTypes.IMAGE;
 			loadedData = image.informa;
 			break;
 		case Media.MimeTypes.MP4:
 			try {
-				video = new InformaVideo(WEB_ROOT + path);
+				video = new InformaVideo(path);
 			} catch (JSONException e) {
 				CouchParser.Log(Couch.ERROR, e.toString());
 			} catch (InterruptedException e) {
@@ -89,7 +89,7 @@ public class MediaLoader implements Constants {
 			break;
 		case Media.MimeTypes.MKV:
 			try {
-				video = new InformaVideo(WEB_ROOT + path);
+				video = new InformaVideo(path);
 			} catch (JSONException e) {
 				CouchParser.Log(Couch.ERROR, e.toString());
 			} catch (InterruptedException e) {
