@@ -1,0 +1,61 @@
+{
+	"id": "_design/submissions",
+	"views": {
+		"hashed_pgp": {
+			"map": "fucntion(doc) {
+				if(doc.hashed_pgp) {
+					emit(doc.hashed_pgp, doc);
+				}
+			}"
+		},
+		"media_type": {
+			"map": "function(doc) {
+				if(doc.media_type) {
+					emit(doc.media_type, doc);
+				}
+			}"
+		},
+		"timestamp_received": {
+			"map": "function(doc) {
+				if(doc.timestamp_received) {
+					emit(doc.timestamp_received, [doc._id, doc.timestamp_created, doc.timestamp_submitted]);
+				}
+			}"
+		},
+		"timestamp_created": {
+			"map": "function(doc) {
+				if(doc.timestamp_created) {
+					emit(doc.timestamp_created, [doc._id, doc.timestamp_received, doc.timestamp_submitted]);
+				}
+			}"
+		},
+		"timestamp_submitted": {
+			"map": "function(doc) {
+				if(doc.timestamp_submitted) {
+					emit(doc.timestamp_submitted, [doc._id, doc.timestamp_received, doc.timestamp_created]);
+				}
+			}"
+		},
+		"attachment": {
+			"map": "function(doc) {
+				if(doc.attachment) {
+					emit(doc.attachment, doc._id);
+				}
+			}"
+		},
+		"flags": {
+			"map": "function(doc) {
+				if(doc.flags) {
+					emit(doc.flags, doc._id);
+				}
+			}"
+		},
+		"notes": {
+			"map": "function(doc) {
+				if(doc.notes) {
+					emit(doc.notes, doc._id);
+				}
+			}"
+		}
+	}
+}

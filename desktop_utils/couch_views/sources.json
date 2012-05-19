@@ -1,0 +1,54 @@
+{
+	"id":"_design/sources",
+	"views": {
+		"name": {
+			"map": "function(doc) {
+				if(doc.name) {
+					emit(doc.name, doc);
+				}
+			}"
+		},
+		"pgp_key": {
+			"map": "function(doc) {
+				if(doc.pgp_key) {
+					emit(doc.pgp_key, doc);
+				}
+			}"
+		},
+		"informa_channel": {
+			"map": "function(doc) {
+				if(doc.informa_channel) {
+					emit(doc.informa_channel, doc);
+				}
+			}"
+		},
+		"email": {
+			"map": "function(doc) {
+				if(doc.email) {
+					emit(doc.email, doc);
+				}
+			}"
+		},
+		"primary_phone": {
+			"map": "function(doc) {
+				if(doc.primary_phone) {
+					emit(doc.primary_phone, doc);
+				}
+			}"
+		},
+		"flags": {
+			"map": "function(doc) {
+				if(doc.flags) {
+					emit(doc.flags, doc);
+				}
+			}"
+		},
+		"notes": {
+			"map": "function(doc) {
+				if(doc.notes) {
+					emit(doc.notes, doc);
+				}
+			}"
+		}
+	}
+}

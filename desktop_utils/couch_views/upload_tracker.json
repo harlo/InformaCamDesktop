@@ -1,0 +1,75 @@
+{
+	"id":"_design/tracker",
+	"views": {
+		"timestamp": {
+			"map":"function(doc) {
+				if(doc.timestamp) { 
+					emit(doc.timestamp, doc._id);
+				}
+			}"
+		},
+		"device_pgp": {
+			"map": "function(doc) {
+				if(doc.device_pgp) {
+					var res = doc;
+					delete res.auth_token;
+					emit(doc.device_pgp, res);
+				}
+			}"
+		},
+		"unredacted_data_hash": {
+			"map": "function(doc) {
+				if(doc.unredacted_data_hash) {
+					var res = doc;
+					delete res.auth_token;
+					emit(doc._id, res);
+				}
+			}"
+		},
+		"redacted_data_hash": {
+			"map": "function(doc) {
+				if(doc.redacted_data_hash) {
+					var res = doc;
+					delete res.auth_token;
+					emit(doc._id, res);
+				}
+			}"
+		},
+		"bytes_expected": {
+			"map": "function(doc) {
+				if(doc.bytes_expected) {
+					emit(doc._id, doc.bytes_expected);
+				}
+			}"
+		},
+		"bytes_transfered": {
+			"map": "function(doc) {
+				if(doc.bytes_transfered) {
+					if(doc.bytes_transfered == doc.bytes_expected) {
+						var res = doc;
+						delete res.auth_token;
+						emit(doc._id, res);
+					} else {
+						emit(doc._id, [doc.bytes_expected, doc.bytes_transfered]);
+					}
+				}
+			}"
+		},
+		"rand_un": {
+			"map": "function(doc) {
+				if(doc.rand_un) {
+					var res = doc;
+					delete res.auth_token;
+					emit(doc.rand_un, res);
+				}
+			}"
+		},
+		"auth_token": {
+			"map": "function(doc) {
+				if(doc.auth_token && doc.rand_un) {
+					emit([doc._id, doc.rand_un], doc.auth_token);
+				}
+			}"
+		}
+	}
+}
