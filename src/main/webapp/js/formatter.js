@@ -8,6 +8,8 @@ function formatSubmissionMini(data) {
 				$(document.createElement('a'))
 					.html("<b>" + dPaths[dPaths.length - 1] + "</b> (" + Submissions.Fields.SUBMITTED + " " + formatTimestampForHumans(d.timestamp_submitted) + ")")
 					.click(function() {
+						removePopup();
+						showSpinner();
 						broadcast({
 							attempt: Command.LOAD_MEDIA,
 							options: {

@@ -50,7 +50,7 @@
 					<td><img src="images/ic_logo.png" /></td>
 					<td>
 						<h1>InformaCam</h1>
-						<p>Powered by<br /><a href="https://guardianproject.info" target="_blank">The Guardian Project</a></p>
+						<p>Powered by<br /><a href="#help/">The Guardian Project</a></p>
 					</td>
 				</tr>
 			</table>

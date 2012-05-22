@@ -295,6 +295,7 @@ function populateTable(data, root) {
 	$.each(data, function() {
 		$(table).append(this);
 	});
+	$("#ui_submissions").css('display','block');
 }
 
 function initLayout() {

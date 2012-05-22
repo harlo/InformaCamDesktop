@@ -58,7 +58,6 @@
                     {
                         handleDesktopServiceMessage(message.data.response);
                     });
-                    // Publish on a service channel since the message is for the server only
                     cometd.publish(dc, { name: 'World' });
                 });
             }

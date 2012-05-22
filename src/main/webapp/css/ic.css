@@ -133,6 +133,10 @@ Layout*/
 	background-image:url('../images/ic_trans_blk.png');
 }
 
+#ui_submissions {
+	display:none;
+}
+
 
 /*--------------------------------------
 Typography*/

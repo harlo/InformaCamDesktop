@@ -26,11 +26,12 @@ def hashFile(filename, block_size=2**14):
 	return md5.hexdigest()
 
 class Submission(object):
-	def __init__(self, hashed_key, media_type, timestamp_received, timestamp_submitted):
+	def __init__(self, hashed_key, media_type, timestamp_received, timestamp_submitted, otp):
 		self.hashed_key = hashed_key
 		self.media_type = media_type
 		self.timestamp_received = timestamp_received
 		self.timestamp_submitted = timestamp_submitted
+		self.otp = otp
 		
 	def moveAttachment(self, oldAttachment):
 		make_dir = subprocess.Popen(["mkdir", submissions_root + self.hashed_key], stdout=subprocess.PIPE)
@@ -55,7 +56,7 @@ class Submission(object):
 				media_type = media_type_IMAGE
 				
 			
-			self.sub_string = (submission_template % (hashFile(web_root + oldAttachment), media_type, self.timestamp_received, self.timestamp_submitted, submissions_root + self.hashed_key +"/" + attachment_root)).__str__()
+			self.sub_string = (submission_template % (hashFile(web_root + oldAttachment), media_type, self.timestamp_received, self.timestamp_submitted, submissions_root + self.hashed_key +"/" + attachment_root, self.otp)).__str__()
 			return True
 		else:
 			return False
@@ -104,12 +105,12 @@ class Monitor():
 			rows = j['rows']
 			#print "checking for unregistered uploads... (%d found)" % len(rows)
 			if len(rows) > 0:
-				LOG = open(self.logfile_path,"w")
+				LOG = open(self.logfile_path,"a")
 				for row in rows:
 					if row['value']['bytes_expected'] == row['value']['bytes_transfered']:
 						# turn each row into a submission (and insert it)
 						vals = row['value']
-						sub = Submission(vals['device_pgp'], vals['media_type'], vals['timestamp_received'], vals['timestamp_submitted'])
+						sub = Submission(vals['device_pgp'], vals['media_type'], vals['timestamp_received'], vals['timestamp_submitted'], vals['OTP'])
 						if sub.moveAttachment(vals['attachment']) == True:
 							remove = sub.removeUpload(vals['_id'], vals['_rev'])
 							if remove['ok'] == True:
@@ -117,6 +118,7 @@ class Monitor():
 								LOG.write(log_content)
 								sub_register = sub.registerUpload()
 								#print sub_register
+								# TODO: should clean up!
 						
 						else:
 							log_content = (log_template % (str(datetime.now()), vals['_id'], vals['_rev'], 'Could not copy uploaded file')).__str__()

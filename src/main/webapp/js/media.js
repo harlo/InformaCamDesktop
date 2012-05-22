@@ -5,13 +5,6 @@ function chooseMedia() {
 	});
 }
 
-function loadMedia() {
-	showAlert(Alerts.MediaLoading.MAIN_TITLE, Alerts.MediaLoading.SELECT_MEDIA, false, null);
-	broadcast({
-		attempt: Command.LOAD_MEDIA
-	});
-}
-
 function MediaStub() {
 	var mediaPaths, currentView, currentDisplay, availableDisplays;
 	var informa, type, title, submissionInfo, imageRegions;

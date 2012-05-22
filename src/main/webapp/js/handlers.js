@@ -35,11 +35,9 @@ function handleDesktopServiceMessage(data) {
 			case Command.LOAD_MEDIA:
 				if(data.metadata != null) {
 					if(!isEmptyObject(data.metadata)) {
+						removeSpinner();
 						media = new MediaStub();
 						media.attachMedia(data.metadata);
-						console.info("WHY U NO?");
-					} else {
-						console.info("this object is empty.  did user cancel?");
 					}
 				} else {
 					console.info("MEDIA IS NULL");

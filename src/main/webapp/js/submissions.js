@@ -6,6 +6,7 @@ function getSubmissions() {
 }
 
 function selectSubmission(el) {
+	showSpinner();
 	broadcast({
 		attempt: Command.LOAD_MEDIA,
 		options: {
