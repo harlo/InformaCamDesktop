@@ -182,3 +182,44 @@ var Metadata = {
 		}
 	}
 };
+
+var Search = {
+	MAIN_TITLE: "Search",
+	REFINE: "Refine",
+	By_Saved_Search: {
+		LABEL: "Load saved search..."
+	},
+	By_Keyword:  {
+		LABEL: "By Keyword"
+	},
+	By_Type: {
+		LABEL: "By Type",
+		Fields: {
+			IMAGE: MediaTypes_str.IMAGE,
+			VIDEO: MediaTypes_str.VIDEO
+		}
+	},
+	By_Timeframe: {
+		LABEL: "By Timeframe",
+		Fields: {
+			PAST_24_HOURS: "Past 24 hours",
+			PAST_WEEK: "Past week",
+			PAST_MONTH: "Past month",
+			PAST_YEAR: "Past year",
+			CUSTOM_RANGE: "Custom range..."
+		}
+	},
+	By_Location: {
+		LABEL: "By Location",
+		Fields: {
+			HINT: "enter coordinates, city, or country",
+			MAP: "Map..."
+		}
+	},
+	Results: {
+		LABEL: "Results",
+		Fields: {
+		
+		}
+	}
+}

@@ -5,6 +5,10 @@ function chooseMedia() {
 	});
 }
 
+function searchMedia() {
+
+}
+
 function MediaStub() {
 	var mediaPaths, currentView, currentDisplay, availableDisplays;
 	var informa, type, title, submissionInfo, imageRegions;

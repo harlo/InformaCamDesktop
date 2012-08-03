@@ -89,7 +89,10 @@
 						<div id="media_options">
 							<ul class="ic_menu_button">
 								<li>
-									<a onclick="chooseMedia();">Load...</a>
+									<a onclick="chooseMedia();">Load</a>
+								</li>
+								<li>
+									<a href="#search/">Search</a>
 								</li>
 								<li>
 									<a>Views</a>
@@ -213,6 +216,108 @@
 		
 		<div id="ui_details">
 			<h1>details viewer</h1>
+		</div>
+		
+		<div id="ui_search">
+			<h1>
+				<script type="text/javascript">
+					document.write(Search.MAIN_TITLE);
+				</script>
+			</h1>
+			<table class="ic_search ic_table">
+				<tr>
+					<td width="20%">
+						<div id="search_refine_options">
+							<h2>
+								<script type="text/javascript">
+									document.write(Search.REFINE);
+								</script>
+							</h2>
+							
+							<a onclick="" class="ic_as_li" id="media_saved_search">
+								<script type="text/javascript">
+									document.write(Search.By_Saved_Search.LABEL);
+								</script>
+							</a>
+							
+							<h3 style="margin-top:10px;">
+								<script type="text/javascript">
+									document.write(Search.By_Keyword.LABEL);
+								</script>
+							</h3>
+							<input id="media_keyword" type="text" />
+							
+							<h3>
+								<script type="text/javascript">
+									document.write(Search.By_Type.LABEL);
+								</script>
+							</h3>
+							<ul id="media_type">
+								<li><a onclick="">
+									<script type="text/javascript">
+										document.write(Search.By_Type.Fields.IMAGE);
+									</script>
+								</a></li>
+								<li><a onclick="">
+									<script type="text/javascript">
+										document.write(Search.By_Type.Fields.VIDEO);
+									</script>
+								</a></li>
+							</ul>
+							
+							<h3>
+								<script type="text/javascript">
+									document.write(Search.By_Timeframe.LABEL);
+								</script>
+							</h3>
+							<ul id="media_timeframe">
+								<li><a onclick="">
+									<script type="text/javascript">
+										document.write(Search.By_Timeframe.Fields.PAST_24_HOURS);
+									</script>
+								</a></li>
+								<li><a onclick="">
+									<script type="text/javascript">
+										document.write(Search.By_Timeframe.Fields.PAST_WEEK);
+									</script>
+								</a></li>
+								<li><a onclick="">
+									<script type="text/javascript">
+										document.write(Search.By_Timeframe.Fields.PAST_MONTH);
+									</script>
+								</a></li>
+								<li><a onclick="">
+									<script type="text/javascript">
+										document.write(Search.By_Timeframe.Fields.PAST_YEAR);
+									</script>
+								</a></li>
+								<li><a onclick="">
+									<script type="text/javascript">
+										document.write(Search.By_Timeframe.Fields.CUSTOM_RANGE);
+									</script>
+								</a></li>
+							</ul>
+							
+							<h3>
+								<script type="text/javascript">
+									document.write(Search.By_Location.LABEL);
+								</script>
+							</h3>
+							<input id="media_location"  class="hinted" type="text" />
+							<a class="ic_as_li" onclick="">
+								<script type="text/javascript">
+									document.write(Search.By_Location.Fields.MAP);
+								</script>
+							</a>
+						</div>
+					</td>
+					<td id="search_results_holder" style="visibility:hidden">
+						<div id="search_results">
+							
+						</div>
+					</td>
+				</tr>
+			</table>
 		</div>
 		
 	</div>

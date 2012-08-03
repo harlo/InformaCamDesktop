@@ -39,7 +39,7 @@ function showMenu(root, which) {
 function toggleMediaView(state) {
 	if(state) {
 		$.each($($("#media_options").children('ul')[0]).children('li'), function(idx) {
-			if(idx > 0)
+			if(idx > 1)
 				$(this).css('visibility','visible');
 		});
 		$.each($("#metadata_holder").children(), function() {
@@ -49,7 +49,7 @@ function toggleMediaView(state) {
 		
 	} else {
 		$.each($($("#media_options").children('ul')[0]).children('li'), function(idx) {
-			if(idx > 0)
+			if(idx > 1)
 				$(this).css('visibility','hidden');
 		});
 		$.each($("#metadata_holder").children(), function() {
@@ -347,6 +347,10 @@ function initLayout() {
 		},
 		details: {
 			root: $("#ui_details")
+		},
+		search: {
+			root: $("#ui_search"),
+			tab: $(nav.children()[0])
 		}
 	};
 	
@@ -408,6 +412,10 @@ function initLayout() {
 			launchUi(ui.details);
 		});
 		
+		this.get('#search/', function() {
+			launchUi(ui.search);
+		});
+		
 		$(".ic_toMedia").live('click', function() {
 			window.location = '#media/';	//why does sammy.redirect not work?
 			selectSubmission(this);
@@ -415,7 +423,7 @@ function initLayout() {
 		
 	});
 	
-	ic.run('#/');
+	ic.run('#media/');
 }
 
 $(document).ready(function() {
